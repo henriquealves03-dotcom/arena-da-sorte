@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090b12">
-  <title>Arena da Sorte</title>
+  <title>Arena da Sorte — Jogos Recreativos</title>
   <style>
     * { box-sizing: border-box; }
     :root {
@@ -86,7 +86,7 @@
 <body>
   <header>
     <h1>✦ ARENA DA SORTE ✦</h1>
-    <p>Entre na diversão. Jogue com pontos fictícios!</p>
+    <p>Diversão casual com pontuação fictícia — sem apostas ou prêmios.</p>
   </header>
   <main>
     <div class="saldo" aria-live="polite">SEU SALDO DE DEMONSTRAÇÃO<strong><span id="saldo">1000</span> pontos</strong></div>
@@ -131,15 +131,13 @@
 
     <section id="crash" class="painel jogo oculto">
       <h2>🚀 Crash de demonstração</h2>
-      <p>Defina quantos pontos fictícios quer usar nesta rodada.</p>
-      <label for="aposta">Pontos da rodada (1 a 100)</label>
-      <input id="aposta" type="number" min="1" max="100" step="1" value="10" inputmode="numeric">
-      <p><button type="button" onclick="jogarCrash()">Iniciar rodada</button></p>
+      <p>Teste sua sorte em uma rodada rápida de reação. Cada rodada dá uma pontuação fixa de brincadeira.</p>
+      <p><button type="button" onclick="jogarCrash()">Jogar rodada de reação</button></p>
       <div id="r4" class="resultado" role="status" aria-live="polite"></div>
-      <p class="pequeno">O multiplicador é apenas uma simulação, sem dinheiro real.</p>
+      <p class="pequeno">Sem apostas, multiplicadores, perdas de pontos ou recompensas resgatáveis.</p>
     </section>
     <p><button type="button" onclick="voltar()">⬅ Voltar ao menu</button></p>
-    <footer>ARENA DA SORTE · JOGOS DE DEMONSTRAÇÃO · SEM VALOR MONETÁRIO</footer>
+    <footer>ARENA DA SORTE · JOGOS RECREATIVOS · PONTOS SEM VALOR MONETÁRIO</footer>
   </main>
   <script>
     let pontos = 1000;
@@ -181,26 +179,11 @@
       document.getElementById('r3').textContent = 'O dado mostrou ' + dado + '. ' + (ganho ? 'Você ganhou 30 pontos fictícios!' : 'Não pontuou desta vez.');
     }
     function jogarCrash() {
-      const campo = document.getElementById('aposta');
-      const n = Number(campo.value);
       const resultado = document.getElementById('r4');
-      if (!Number.isInteger(n) || n < 1 || n > 100) {
-        resultado.textContent = 'Digite um valor inteiro de 1 a 100 pontos.';
-        return;
-      }
-      if (n > pontos) {
-        resultado.textContent = 'Saldo fictício insuficiente.';
-        return;
-      }
-      const multiplicador = Number((1 + Math.random() * 3).toFixed(2));
-      pontos -= n;
-      const ganhou = Math.random() < 0.65;
-      const premio = ganhou ? Math.floor(n * multiplicador) : 0;
-      pontos += premio;
-      atualizar();
-      resultado.textContent = ganhou
-        ? 'Multiplicador simulado: ' + multiplicador.toFixed(2) + 'x. Resultado: +' + premio + ' pontos fictícios.'
-        : 'A rodada encerrou. Foram usados ' + n + ' pontos fictícios.';
+      const reacao = 5 + Math.floor(Math.random() * 16);
+      const ganho = 10 + Math.floor(Math.random() * 21);
+      adicionarPontos(ganho);
+      resultado.textContent = 'Rodada concluída! Tempo de reação simulado: ' + reacao + ' ms. Você marcou +' + ganho + ' pontos fictícios.';
     }
   </script>
 </body>
