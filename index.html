@@ -63,6 +63,10 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
 /* Planos comerciais: benefícios de acesso, sem apostas ou saques */
 .plans-panel{margin-top:16px}.plans-intro{color:var(--muted);line-height:1.6;max-width:720px}.plans-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}.plan-card{border:1px solid var(--line);border-radius:16px;padding:18px;background:linear-gradient(150deg,#172133,#0d121d);display:flex;flex-direction:column;gap:10px}.plan-card.featured{border-color:#c9a34e;box-shadow:inset 0 0 0 1px #c9a34e24}.plan-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#f3c969;font-weight:800}.plan-price{font-size:25px;font-weight:850;color:#fff}.plan-price small{font-size:12px;font-weight:500;color:var(--muted)}.plan-card ul{padding-left:19px;color:var(--muted);line-height:1.8;margin:0 0 6px}.plan-action{width:100%;min-height:44px;border:1px solid #c9a34e;border-radius:11px;background:linear-gradient(135deg,#f3d783,#c89a3d);color:#17120a;font:inherit;font-weight:800;cursor:pointer}.plan-action.secondary-plan{background:#151e2d;color:#f3c969}.plan-notice{display:none;border:1px solid #43516a;border-radius:11px;padding:12px;color:#dce5f5;background:#111a28;line-height:1.5}.plan-notice.visible{display:block}#plansPanel{scroll-margin-top:76px}
 @media(min-width:680px){.plans-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.plan-card{padding:20px}}
+
+.robot-assistant{position:fixed;right:14px;bottom:16px;z-index:1000;display:flex;align-items:center;gap:10px;max-width:min(340px,calc(100vw - 28px));padding:10px 12px;border:1px solid #c9a34e;border-radius:18px;background:linear-gradient(145deg,#172235f5,#080c14f5);box-shadow:0 10px 35px #0009,0 0 22px #d5a63a20;color:#fff;backdrop-filter:blur(12px)}
+.robot-avatar{width:48px;height:48px;flex:0 0 48px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#ffe08a,#c58a24);font-size:29px;box-shadow:inset 0 1px 2px #fff9;animation:robotBob 2.4s ease-in-out infinite}
+.robot-copy{min-width:0;flex:1}.robot-copy strong{display:block;font-size:13px;color:#f3c969;margin-bottom:3px}.robot-copy p{margin:0;color:#e0e7f1;font-size:12px;line-height:1.35}.robot-actions{display:flex;flex-direction:column;gap:5px}.robot-actions button{border:1px solid #6b582d;background:#c99c40;color:#16120a;border-radius:9px;padding:7px 9px;font:inherit;font-size:11px;font-weight:800;cursor:pointer}.robot-actions .robot-close{background:#151e2d;color:#f3c969;border-color:#43516a}@keyframes robotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@media(max-width:430px){.robot-assistant{right:9px;bottom:9px;padding:8px;gap:8px}.robot-avatar{width:40px;height:40px;flex-basis:40px;font-size:24px}.robot-copy p{font-size:11px}.robot-actions button{padding:7px}}
 </style></head><body>
 <header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
 <nav class="arena-nav" aria-label="Navegação principal"><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#plansPanel">Planos</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
@@ -137,6 +141,11 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
   <p class="ai-note">Assistente inicial integrado à página, sem conexão com serviço externo de IA. Não solicita senhas nem dados bancários. A pontuação é fictícia e não tem valor monetário.</p>
 </section>
 <footer>ARENA DA SORTE · VERSÃO RECREATIVA</footer></main>
+<aside class="robot-assistant" id="robotAssistant" aria-live="polite" aria-label="Robô assistente da Arena">
+ <div class="robot-avatar" aria-hidden="true">🤖</div>
+ <div class="robot-copy"><strong>Robô da Arena</strong><p id="robotMessage">Olá! Escolha um minijogo e eu ajudo você a começar.</p></div>
+ <div class="robot-actions"><button type="button" id="robotOpen" hidden>Abrir jogo</button><button type="button" class="robot-close" id="robotClose" aria-label="Ocultar robô">Ocultar</button></div>
+</aside>
 <script>
 (function(){
 'use strict';
@@ -144,7 +153,12 @@ var score=1000, balance=document.getElementById('balance'), panels=Array.from(do
 function update(){balance.textContent=score.toLocaleString('pt-BR')}
 function add(n){score+=Math.max(0,Math.floor(Number(n)||0));update()}
 function show(id){var target=id||'roulette';panels.forEach(function(p){p.classList.toggle('hidden',p.id!==target)});buttons.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.game===target))});var section=document.getElementById(target);if(section){section.scrollIntoView({behavior:'smooth',block:'start'});section.setAttribute('tabindex','-1');try{section.focus({preventScroll:true})}catch(e){section.focus()}}}
-buttons.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.game)})});
+var robotMessage=document.getElementById('robotMessage'),robotOpen=document.getElementById('robotOpen'),robotClose=document.getElementById('robotClose'),robotAssistant=document.getElementById('robotAssistant'),selectedGame='';
+function gameName(id){var b=document.querySelector('[data-game="'+id+'"]');return b?b.innerText.replace(/\s+/g,' ').trim():id}
+function robotSelect(id){selectedGame=id;var name=gameName(id);if(robotMessage)robotMessage.textContent='Boa escolha! Você selecionou '+name+'. Toque em “Abrir jogo” para começar.';if(robotOpen)robotOpen.hidden=false;if(robotAssistant)robotAssistant.style.display='flex'}
+if(robotOpen)robotOpen.addEventListener('click',function(){if(selectedGame){show(selectedGame);if(robotMessage)robotMessage.textContent='Pronto! O jogo '+gameName(selectedGame)+' está aberto. Divirta-se com pontos fictícios!';robotOpen.hidden=true}});
+if(robotClose)robotClose.addEventListener('click',function(){if(robotAssistant)robotAssistant.style.display='none'});
+buttons.forEach(function(b){b.addEventListener('click',function(){robotSelect(b.dataset.game);show(b.dataset.game)})});
 var planNotice=document.getElementById('planNotice');
 document.querySelectorAll('[data-plan]').forEach(function(btn){btn.addEventListener('click',function(){if(!planNotice)return;var plan=btn.getAttribute('data-plan');planNotice.textContent=plan==='Gratuito'?'O acesso gratuito usa pontos fictícios e não exige pagamento.':'Você selecionou '+plan+'. A contratação ainda não está disponível; nenhum pagamento foi iniciado.';planNotice.classList.add('visible');planNotice.scrollIntoView({behavior:'smooth',block:'nearest'});});});
 document.getElementById('backToMenu').addEventListener('click',function(){show('homePanel');window.scrollTo({top:0,behavior:'smooth'})});
