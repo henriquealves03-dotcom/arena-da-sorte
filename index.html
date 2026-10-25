@@ -101,7 +101,7 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
 .account-grid{display:grid;grid-template-columns:1fr;gap:12px}.account-field{display:block;width:100%;box-sizing:border-box;min-height:48px;padding:12px;border:1px solid #43516a;border-radius:11px;background:#080d16;color:#fff;font:inherit;font-size:16px}.account-help{font-size:12px;color:var(--muted);line-height:1.6}.account-alert{display:none;margin-top:12px;padding:12px;border:1px solid #43516a;border-radius:11px;background:#111a28;color:#e5edfa}.account-alert.visible{display:block}@media(min-width:650px){.account-grid{grid-template-columns:1fr 1fr}}
 </style></head><body>
 <header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
-<nav class="arena-nav" aria-label="Navegação principal"><a href="#accountPanel">Minha conta</a><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#rechargePanel">Recarga</a><a href="#refundPanel">Reembolso</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
+<nav class="arena-nav" aria-label="Navegação principal"><a href="#accountPanel">Minha conta</a><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#playersPanel">Placar de demonstração</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
 <div class="update-all-wrap"><button class="update-all-button" type="button" id="updateAllButton"><span aria-hidden="true">↻</span> Atualizar tudo</button><span class="update-all-note" id="updateAllNote" role="status" aria-live="polite">Carrega a versão mais recente do site</span></div>
 <main>
 <section class="balance" aria-live="polite"><small>SUA PONTUAÇÃO DE DEMONSTRAÇÃO</small><strong id="balance">1.000</strong><span>pontos fictícios · sem valor monetário</span></section>
@@ -126,43 +126,8 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
  <button class="secondary home-all" type="button" id="showAllGames">Ver todos os jogos ↓</button>
  <p class="home-footnote">Todos os pontos são fictícios e não têm valor em dinheiro.</p>
 </section>
-<section class="panel recharge-panel" id="rechargePanel" aria-labelledby="rechargeTitle">
- <div class="home-kicker">✦ COMPRAS DA ARENA</div>
- <h2 id="rechargeTitle">Adicionar valor para benefícios</h2>
- <p class="plans-intro">Escolha o valor que deseja pagar por compras avulsas de benefícios digitais. Não é assinatura. Os jogos usam apenas pontos fictícios; não há apostas, saques ou prêmios em dinheiro.</p>
- <div class="recharge-box">
-  <label for="rechargeAmount">Valor da compra (R$)</label>
-  <input class="recharge-field" id="rechargeAmount" type="number" min="1" max="1000" step="0.01" value="20.00" inputmode="decimal" aria-describedby="rechargeHelp">
-  <div class="recharge-choices" aria-label="Valores sugeridos">
-   <button class="recharge-choice" type="button" data-recharge-value="10">R$ 10</button>
-   <button class="recharge-choice" type="button" data-recharge-value="20">R$ 20</button>
-   <button class="recharge-choice" type="button" data-recharge-value="50">R$ 50</button>
-   <button class="recharge-choice" type="button" data-recharge-value="100">R$ 100</button>
-  </div>
-  <p class="recharge-hint" id="rechargeHelp">Digite um valor entre R$ 1,00 e R$ 1.000,00. O checkout do Mercado Pago ainda não está conectado; este formulário não cobra nem transfere dinheiro.</p>
-  <button class="plan-action" type="button" id="prepareRecharge">Continuar para compra</button>
-  <div class="recharge-result" id="rechargeResult" role="status" aria-live="polite"></div>
- </div>
-</section>
-<section class="panel refund-panel" id="refundPanel" aria-labelledby="refundTitle">
- <div class="home-kicker">✦ AJUDA COM COMPRAS</div>
- <h2 id="refundTitle">Solicitar reembolso</h2>
- <p class="plans-intro">Use este formulário para solicitar análise de reembolso de uma compra comercial elegível. Não é saque de saldo de jogo, nem pagamento de prêmios.</p>
- <div class="refund-box">
-  <label for="refundAmount">Valor do reembolso (R$)</label>
-  <input class="refund-field" id="refundAmount" type="number" min="20" max="2000" step="0.01" value="20.00" inputmode="decimal" aria-describedby="refundHelp">
-  <p class="refund-note" id="refundHelp">Valor mínimo: R$ 20,00. Valor máximo: R$ 2.000,00. A solicitação precisa ser analisada; aprovação e devolução não são automáticas.</p>
-  <label for="refundReason">Motivo da solicitação</label>
-  <select id="refundReason" class="refund-field">
-   <option value="Compra duplicada">Compra duplicada</option>
-   <option value="Compra não reconhecida">Compra não reconhecida</option>
-   <option value="Problema com o benefício comprado">Problema com o benefício comprado</option>
-   <option value="Outro motivo">Outro motivo</option>
-  </select>
-  <p><button class="plan-action" type="button" id="submitRefund">Enviar solicitação para análise</button></p>
-  <div class="refund-result" id="refundResult" role="status" aria-live="polite"></div>
- </div>
-</section>
+<section class="panel" id="rechargePanel" aria-labelledby="rechargeTitle"><div class="home-kicker">✦ MODO DE DEMONSTRAÇÃO</div><h2 id="rechargeTitle">Recargas e compras desativadas</h2><p class="plans-intro">Esta versão da Arena da Sorte é apenas para entretenimento com pontos fictícios. Não aceita pagamentos, não vende benefícios e não oferece saques ou prêmios em dinheiro. Nenhuma transação está disponível neste site.</p></section>
+<section class="panel" id="refundPanel" aria-labelledby="refundTitle"><div class="home-kicker">✦ INFORMAÇÃO</div><h2 id="refundTitle">Reembolsos indisponíveis</h2><p class="plans-intro">Como o site não processa compras, este formulário de demonstração não recebe nem registra pedidos de reembolso. Se uma compra for oferecida por outro serviço, use o canal oficial desse serviço.</p></section>
 <section class="panel" id="playersPanel"><h2>Jogadores individuais — demonstração</h2><p>Adicione nomes e pontuações fictícias para ver a distribuição proporcional de pontos. A lista pode ser salva somente neste navegador; não é uma conta online e não sincroniza com outros aparelhos. Evite usar dados pessoais sensíveis.</p><label for="playerName">Nome do jogador</label><input id="playerName" maxlength="30" autocomplete="off" placeholder="Digite um nome" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><label for="playerPoints">Pontuação fictícia do jogador</label><input id="playerPoints" type="number" min="1" max="1000000" value="100" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><p><button class="primary" id="addPlayer" type="button">Adicionar / atualizar jogador</button></p><p><button class="secondary" id="clearPlayers" type="button">Limpar lista de demonstração</button></p><div class="result" id="playersResult" role="status" aria-live="polite">Nenhum jogador adicionado ainda.</div><div id="playersList"></div><div class="result" id="allocationSummary">Simulação com 1.000 pontos fictícios: 300 pontos para jogadores e 700 pontos para a plataforma. Sem dinheiro real.</div></section>
 <div class="headrow" id="gameLobby"><h2>Explore os jogos</h2><button class="reset" id="resetScore" type="button">Reiniciar pontos</button></div>
 <div class="catalog-search"><span aria-hidden="true">⌕</span><input id="gameSearch" type="search" placeholder="Buscar um jogo..." aria-label="Buscar um jogo"><span class="search-hint">Digite um nome ou tema</span></div><div class="catalog-tools" aria-label="Filtros de jogos"><button type="button" id="showAllGamesFilter" aria-pressed="true">Todos os jogos</button><button type="button" id="showFavoritesFilter" aria-pressed="false">☆ Favoritos <span id="favoriteCount">0</span></button></div><div id="catalogEmpty" class="catalog-empty" role="status">Nenhum jogo encontrado. Experimente outra busca ou veja todos os jogos.</div>
@@ -219,11 +184,7 @@ function robotSelect(id){selectedGame=id;var name=gameName(id);if(robotMessage)r
 if(robotOpen)robotOpen.addEventListener('click',function(){if(selectedGame){show(selectedGame);if(robotMessage)robotMessage.textContent='Pronto! O jogo '+gameName(selectedGame)+' está aberto. Divirta-se com pontos fictícios!';robotOpen.hidden=true}});
 if(robotClose)robotClose.addEventListener('click',function(){if(robotAssistant)robotAssistant.style.display='none'});
 buttons.forEach(function(b){b.addEventListener('click',function(){robotSelect(b.dataset.game);show(b.dataset.game)})});
-var rechargeAmount=document.getElementById('rechargeAmount'),rechargeResult=document.getElementById('rechargeResult');
-document.querySelectorAll('[data-recharge-value]').forEach(function(btn){btn.addEventListener('click',function(){rechargeAmount.value=btn.getAttribute('data-recharge-value');if(rechargeResult){rechargeResult.classList.remove('visible');rechargeResult.textContent='';}});});
-document.getElementById('prepareRecharge').addEventListener('click',function(){var amount=Number(String(rechargeAmount.value).replace(',','.'));if(!Number.isFinite(amount)||amount<1||amount>1000){rechargeResult.textContent='Informe um valor entre R$ 1,00 e R$ 1.000,00.';rechargeResult.classList.add('visible');return;}rechargeResult.textContent='Valor escolhido: R$ '+amount.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'. Nenhuma cobrança foi criada. Para pagar, o responsável pelo site ainda precisa configurar o checkout do Mercado Pago em um servidor seguro e definir quais benefícios digitais serão entregues.';rechargeResult.classList.add('visible');});
-var refundAmount=document.getElementById('refundAmount'),refundReason=document.getElementById('refundReason'),refundResult=document.getElementById('refundResult');
-document.getElementById('submitRefund').addEventListener('click',function(){var amount=Number(String(refundAmount.value).replace(',','.'));if(!Number.isFinite(amount)||amount<20||amount>2000){refundResult.textContent='Informe um valor entre R$ 20,00 e R$ 2.000,00.';refundResult.classList.add('visible');return;}refundResult.textContent='Solicitação preparada: R$ '+amount.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+' — motivo: '+refundReason.value+'. Atenção: este site ainda não envia solicitações para um servidor. Nenhum reembolso foi registrado ou transferido. Para ativar o processo, é necessário integrar um backend seguro e validar a compra original.';refundResult.classList.add('visible');});
+// Recargas e reembolsos estão desativados nesta versão recreativa; não há processamento financeiro.
 var planNotice=document.getElementById('planNotice');
 document.querySelectorAll('[data-plan]').forEach(function(btn){btn.addEventListener('click',function(){if(!planNotice)return;var plan=btn.getAttribute('data-plan');planNotice.textContent=plan==='Gratuito'?'O acesso gratuito usa pontos fictícios e não exige pagamento.':'Você selecionou '+plan+'. A contratação ainda não está disponível; nenhum pagamento foi iniciado.';planNotice.classList.add('visible');planNotice.scrollIntoView({behavior:'smooth',block:'nearest'});});});
 document.getElementById('backToMenu').addEventListener('click',function(){show('homePanel');window.scrollTo({top:0,behavior:'smooth'})});
