@@ -59,9 +59,13 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
 @media(min-width:560px){.menu{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(min-width:850px){.menu{grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}main{padding:26px 22px 48px}.home-panel{padding:28px}.home-title{font-size:34px}.balance{display:flex;align-items:center;justify-content:center;gap:22px;text-align:left;padding:14px 24px}.balance strong{display:inline-block;font-size:32px}.balance small{max-width:140px}.balance span{font-size:12px}}
 @media(max-width:430px){.search-hint{display:none}.arena-nav{gap:25px}.nav-tag{display:none}.catalog-search{margin-bottom:13px}}
+
+/* Planos comerciais: benefícios de acesso, sem apostas ou saques */
+.plans-panel{margin-top:16px}.plans-intro{color:var(--muted);line-height:1.6;max-width:720px}.plans-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}.plan-card{border:1px solid var(--line);border-radius:16px;padding:18px;background:linear-gradient(150deg,#172133,#0d121d);display:flex;flex-direction:column;gap:10px}.plan-card.featured{border-color:#c9a34e;box-shadow:inset 0 0 0 1px #c9a34e24}.plan-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#f3c969;font-weight:800}.plan-price{font-size:25px;font-weight:850;color:#fff}.plan-price small{font-size:12px;font-weight:500;color:var(--muted)}.plan-card ul{padding-left:19px;color:var(--muted);line-height:1.8;margin:0 0 6px}.plan-action{width:100%;min-height:44px;border:1px solid #c9a34e;border-radius:11px;background:linear-gradient(135deg,#f3d783,#c89a3d);color:#17120a;font:inherit;font-weight:800;cursor:pointer}.plan-action.secondary-plan{background:#151e2d;color:#f3c969}.plan-notice{display:none;border:1px solid #43516a;border-radius:11px;padding:12px;color:#dce5f5;background:#111a28;line-height:1.5}.plan-notice.visible{display:block}#plansPanel{scroll-margin-top:76px}
+@media(min-width:680px){.plans-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.plan-card{padding:20px}}
 </style></head><body>
 <header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
-<nav class="arena-nav" aria-label="Navegação principal"><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
+<nav class="arena-nav" aria-label="Navegação principal"><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#plansPanel">Planos</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
 <main>
 <section class="balance" aria-live="polite"><small>SUA PONTUAÇÃO DE DEMONSTRAÇÃO</small><strong id="balance">1.000</strong><span>pontos fictícios · sem valor monetário</span></section>
 <section class="panel game-panel home-panel" id="homePanel">
@@ -83,6 +87,30 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
  </div>
  <button class="secondary home-all" type="button" id="showAllGames">Ver todos os jogos ↓</button>
  <p class="home-footnote">Todos os pontos são fictícios e não têm valor em dinheiro.</p>
+</section>
+<section class="panel plans-panel" id="plansPanel" aria-labelledby="plansTitle">
+ <div class="home-kicker">✦ PLANOS DA ARENA</div>
+ <h2 id="plansTitle">Jogue grátis. Escolha benefícios extras.</h2>
+ <p class="plans-intro">Os planos pagos oferecem recursos de personalização e acompanhamento. Todos os jogos continuam recreativos: pontos fictícios, sem apostas, prêmios em dinheiro ou saques.</p>
+ <div class="plans-grid">
+  <article class="plan-card">
+   <span class="plan-label">Comece aqui</span><h3>Gratuito</h3><div class="plan-price">R$ 0 <small>/ sempre</small></div>
+   <ul><li>Acesso aos minijogos recreativos</li><li>Pontuação fictícia</li><li>Experiência básica da Arena</li></ul>
+   <button class="plan-action secondary-plan" type="button" data-plan="Gratuito">Plano atual</button>
+  </article>
+  <article class="plan-card featured">
+   <span class="plan-label">Mais benefícios</span><h3>Arena Plus</h3><div class="plan-price">Preço a definir</div>
+   <ul><li>Temas visuais extras</li><li>Emblemas de perfil exclusivos</li><li>Estatísticas recreativas ampliadas</li></ul>
+   <button class="plan-action" type="button" data-plan="Arena Plus">Tenho interesse</button>
+  </article>
+  <article class="plan-card">
+   <span class="plan-label">Experiência completa</span><h3>Arena Premium</h3><div class="plan-price">Preço a definir</div>
+   <ul><li>Todos os benefícios Plus</li><li>Mais opções de personalização</li><li>Histórico recreativo detalhado</li></ul>
+   <button class="plan-action secondary-plan" type="button" data-plan="Arena Premium">Tenho interesse</button>
+  </article>
+ </div>
+ <div class="plan-notice" id="planNotice" role="status" aria-live="polite"></div>
+ <p class="ai-note">A contratação e o checkout ainda não estão configurados. Não envie Pix por esta página. Os preços e condições serão publicados antes de qualquer cobrança.</p>
 </section>
 <section class="panel" id="playersPanel"><h2>Jogadores individuais — demonstração</h2><p>Adicione nomes e pontuações fictícias para ver a distribuição proporcional de pontos. A lista pode ser salva somente neste navegador; não é uma conta online e não sincroniza com outros aparelhos. Evite usar dados pessoais sensíveis.</p><label for="playerName">Nome do jogador</label><input id="playerName" maxlength="30" autocomplete="off" placeholder="Digite um nome" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><label for="playerPoints">Pontuação fictícia do jogador</label><input id="playerPoints" type="number" min="1" max="1000000" value="100" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><p><button class="primary" id="addPlayer" type="button">Adicionar / atualizar jogador</button></p><p><button class="secondary" id="clearPlayers" type="button">Limpar lista de demonstração</button></p><div class="result" id="playersResult" role="status" aria-live="polite">Nenhum jogador adicionado ainda.</div><div id="playersList"></div><div class="result" id="allocationSummary">Simulação com 1.000 pontos fictícios: 300 pontos para jogadores e 700 pontos para a plataforma. Sem dinheiro real.</div></section>
 <div class="headrow" id="gameLobby"><h2>Explore os jogos</h2><button class="reset" id="resetScore" type="button">Reiniciar pontos</button></div>
@@ -117,6 +145,8 @@ function update(){balance.textContent=score.toLocaleString('pt-BR')}
 function add(n){score+=Math.max(0,Math.floor(Number(n)||0));update()}
 function show(id){var target=id||'roulette';panels.forEach(function(p){p.classList.toggle('hidden',p.id!==target)});buttons.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.game===target))});var section=document.getElementById(target);if(section){section.scrollIntoView({behavior:'smooth',block:'start'});section.setAttribute('tabindex','-1');try{section.focus({preventScroll:true})}catch(e){section.focus()}}}
 buttons.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.game)})});
+var planNotice=document.getElementById('planNotice');
+document.querySelectorAll('[data-plan]').forEach(function(btn){btn.addEventListener('click',function(){if(!planNotice)return;var plan=btn.getAttribute('data-plan');planNotice.textContent=plan==='Gratuito'?'O acesso gratuito usa pontos fictícios e não exige pagamento.':'Você selecionou '+plan+'. A contratação ainda não está disponível; nenhum pagamento foi iniciado.';planNotice.classList.add('visible');planNotice.scrollIntoView({behavior:'smooth',block:'nearest'});});});
 document.getElementById('backToMenu').addEventListener('click',function(){show('homePanel');window.scrollTo({top:0,behavior:'smooth'})});
 document.getElementById('showAllGames').addEventListener('click',function(){document.querySelector('.menu').scrollIntoView({behavior:'smooth',block:'start'})});
 document.getElementById('resetScore').addEventListener('click',function(){score=1000;update();['rouletteResult','cardsResult','diceResult','reflexResult'].forEach(function(id){document.getElementById(id).textContent=''}) ;document.getElementById('playerCard').innerHTML='<small>SUA CARTA</small>?';document.getElementById('computerCard').innerHTML='<small>COMPUTADOR</small>?';document.getElementById('diceFace').textContent='?';show('welcome')});
