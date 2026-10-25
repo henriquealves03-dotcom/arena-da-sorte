@@ -1,1 +1,203 @@
 
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  --fundo: #090b12;
+  --painel: #131827;
+  --borda: #293247;
+  --dourado: #f4c65e;
+  --texto: #f7f8fc;
+  --suave: #aab3c7;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, #25203b 0%, transparent 55%),
+    var(--fundo);
+  color: var(--texto);
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 34px 16px 30px;
+  background: linear-gradient(135deg, #171c2d, #10131e);
+  border-bottom: 1px solid #b68b38;
+  box-shadow: 0 10px 35px #0005;
+}
+
+h1 {
+  color: var(--dourado);
+  font-size: clamp(25px, 6vw, 36px);
+  letter-spacing: 1.5px;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+
+header p {
+  margin: 0;
+  color: var(--suave);
+  font-size: 14px;
+}
+
+main {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+h2 {
+  color: var(--dourado);
+  font-size: 21px;
+  margin: 0 0 12px;
+}
+
+.saldo,
+.painel {
+  background: linear-gradient(145deg, #181f30, #111624);
+  border: 1px solid var(--borda);
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 28px #0003;
+}
+
+.saldo {
+  text-align: center;
+  color: var(--suave);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.saldo strong {
+  display: block;
+  color: var(--dourado);
+  font-size: clamp(27px, 7vw, 36px);
+  margin-top: 7px;
+  letter-spacing: 0;
+}
+
+.menu {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0 22px;
+}
+
+button {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #e6b84d;
+  border-radius: 13px;
+  padding: 13px 16px;
+  background: linear-gradient(135deg, #f4cf78, #dba63c);
+  color: #17130a;
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform .15s, filter .15s;
+}
+
+button:active {
+  transform: scale(.98);
+  filter: brightness(.92);
+}
+
+.menu button {
+  min-height: 76px;
+  background: linear-gradient(145deg, #202940, #151c2c);
+  color: var(--texto);
+  border: 1px solid #394762;
+  font-size: 16px;
+}
+
+.menu button:hover {
+  border-color: var(--dourado);
+}
+
+.jogo {
+  margin-top: 18px;
+}
+
+.jogo p {
+  color: #d3d9e6;
+}
+
+input,
+select {
+  width: 100%;
+  max-width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border-radius: 11px;
+  border: 1px solid #394762;
+  background: #0b101c;
+  color: var(--texto);
+  font-size: 16px;
+}
+
+.resultado {
+  color: var(--dourado);
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.5;
+  margin: 18px 0;
+  min-height: 32px;
+  overflow-wrap: anywhere;
+}
+
+.pequeno {
+  color: var(--suave);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.oculto {
+  display: none;
+}
+
+footer {
+  text-align: center;
+  color: #8e98ad;
+  font-size: 11px;
+  letter-spacing: .7px;
+  padding: 24px 8px;
+  border-top: 1px solid var(--borda);
+  margin-top: 24px;
+}
+
+@media (max-width: 420px) {
+  header {
+    padding: 28px 12px;
+  }
+
+  main {
+    padding: 20px 12px;
+  }
+
+  .saldo,
+  .painel {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .menu {
+    gap: 9px;
+  }
+
+  .menu button {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+}
+</style>
