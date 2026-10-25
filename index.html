@@ -310,4 +310,248 @@ gameSearch.addEventListener('keydown',function(e){if(e.key==='Escape'){gameSearc
 \nloadPlayers();renderPlayers();
 renderCatalog();update();show('homePanel');
 })();
-</script></body></html>
+</script></body></html><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0e17">
+  <meta name="description" content="Arena da Sorte: minijogos recreativos de entretenimento com pontos fictícios.">
+  <title>Arena da Sorte — Portal de Jogos Recreativos</title>
+  <style>
+    :root {
+      --bg: #0b0e17;
+      --panel: #131a29;
+      --card-bg: #1c2638;
+      --primary: #f3a825;
+      --primary-hover: #ffb732;
+      --accent-red: #e63946;
+      --accent-purple: #7209b7;
+      --text: #ffffff;
+      --muted: #8e9bb0;
+      --border: #26334a;
+      --gold-gradient: linear-gradient(135deg, #ffe289, #f3a825, #996300);
+      --purple-gradient: linear-gradient(135deg, #7209b7, #4361ee);
+      --red-gradient: linear-gradient(135deg, #d62828, #003049);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding-bottom: 70px; min-height: 100vh; overflow-x: hidden; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11, 14, 23, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-size: 18px; font-weight: 900;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
+    }
+    .user-balance {
+      background: #162032; border: 1px solid #2e3e5c;
+      padding: 6px 12px; border-radius: 20px;
+      display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700;
+    }
+    .user-balance .coin-icon { font-size: 15px; }
+
+    /* Banners & Promoções */
+    .banner-container { padding: 12px 16px; }
+    .banner {
+      background: linear-gradient(135deg, #2b1055, #7597de);
+      border-radius: 16px; padding: 20px 16px; position: relative;
+      overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      border: 1px solid #4a3b75;
+    }
+    .banner h2 { font-size: 20px; color: #fff; margin-bottom: 4px; font-weight: 800; }
+    .banner p { font-size: 12px; color: #d0d7e5; margin-bottom: 12px; }
+    .banner-badge {
+      display: inline-block; background: var(--accent-red); color: #fff;
+      font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .banner-btn {
+      background: var(--gold-gradient); color: #100a00; border: none;
+      padding: 8px 16px; border-radius: 8px; font-weight: 800; font-size: 12px;
+      cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    /* Buscador & Categorias */
+    .search-box { padding: 0 16px 12px; }
+    .search-input {
+      width: 100%; background: #162032; border: 1px solid var(--border);
+      padding: 10px 14px; border-radius: 12px; color: #fff; font-size: 14px; outline: none;
+    }
+    .categories {
+      display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 12px;
+      scrollbar-width: none;
+    }
+    .categories::-webkit-scrollbar { display: none; }
+    .category-chip {
+      background: #162032; border: 1px solid var(--border); color: var(--muted);
+      padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+      white-space: nowrap; cursor: pointer; flex-shrink: 0;
+    }
+    .category-chip.active {
+      background: var(--gold-gradient); color: #000; border-color: transparent;
+    }
+
+    /* Grid de Jogos */
+    .section-title { font-size: 16px; font-weight: 800; padding: 8px 16px; display: flex; align-items: center; gap: 6px; }
+    .games-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+      padding: 8px 16px 24px;
+    }
+    @media (min-width: 600px) {
+      .games-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .games-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .game-card {
+      background: var(--card-bg); border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border); position: relative; cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .game-card:active { transform: scale(0.97); }
+    .game-thumb {
+      aspect-ratio: 4/3; background: #0f1623; display: flex;
+      align-items: center; justify-content: center; font-size: 42px;
+      position: relative;
+    }
+    .game-thumb.asian-style { background: radial-gradient(circle, #800e13, #38040e); }
+    .game-thumb.space-style { background: radial-gradient(circle, #3a0ca3, #10002b); }
+    .game-thumb.jungle-style { background: radial-gradient(circle, #2d6a4f, #081c15); }
+    
+    .game-info { padding: 10px; }
+    .game-title { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .game-desc { font-size: 10px; color: var(--muted); }
+    .game-tag {
+      position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px); color: #fff; font-size: 9px; font-weight: 800;
+      padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Tela do Jogo Recreativo (Estilo Slot Asiático) */
+    .game-modal {
+      position: fixed; inset: 0; z-index: 1000; background: #080305;
+      display: none; flex-direction: column; overflow-y: auto;
+    }
+    .game-modal.active { display: flex; }
+    .modal-header {
+      padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
+      background: #150306; border-bottom: 1px solid #3d0a11;
+    }
+    .close-btn {
+      background: #2b080d; border: 1px solid #54111a; color: #fff;
+      padding: 6px 12px; border-radius: 8px; font-weight: 700; cursor: pointer;
+    }
+    .slot-stage {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 20px;
+      background: radial-gradient(circle at center, #54080e 0%, #0a0102 100%);
+    }
+    .slot-frame {
+      width: min(100%, 340px); background: linear-gradient(180deg, #800e13, #2b0407);
+      border: 4px solid #f3a825; border-radius: 20px; padding: 16px;
+      box-shadow: 0 0 30px rgba(243, 168, 37, 0.3); text-align: center;
+    }
+    .slot-title {
+      font-size: 22px; font-weight: 900; color: #ffe289;
+      text-transform: uppercase; margin-bottom: 12px;
+      text-shadow: 0 2px 4px #000;
+    }
+    .reels-container {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      background: #000; padding: 10px; border-radius: 12px;
+      border: 2px solid #b8860b; margin-bottom: 16px;
+    }
+    .reel-box {
+      aspect-ratio: 1; background: linear-gradient(180deg, #1f1f1f, #0a0a0a);
+      border-radius: 8px; border: 1px solid #333; display: flex;
+      align-items: center; justify-content: center; font-size: 38px;
+      box-shadow: inset 0 0 10px #000;
+    }
+    .spin-btn {
+      width: 100%; background: var(--gold-gradient); color: #170a00;
+      border: none; padding: 14px; border-radius: 12px; font-size: 16px;
+      font-weight: 900; cursor: pointer; text-transform: uppercase;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    }
+    .spin-btn:active { transform: translateY(2px); }
+    .slot-result {
+      margin-top: 12px; min-height: 24px; font-weight: 800; font-size: 14px;
+      color: #ffe289;
+    }
+
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 60px;
+      background: #0f1622; border-top: 1px solid var(--border);
+      display: flex; justify-content: space-around; align-items: center;
+      z-index: 99;
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      color: var(--muted); text-decoration: none; font-size: 10px; font-weight: 700;
+      background: none; border: none; cursor: pointer;
+    }
+    .nav-item.active { color: var(--primary); }
+    .nav-icon { font-size: 18px; }
+
+    /* Aviso Recreativo */
+    .recreational-note {
+      text-align: center; font-size: 11px; color: var(--muted);
+      padding: 16px; line-height: 1.4; border-top: 1px solid var(--border);
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">ARENA DA SORTE</div>
+    <div class="user-balance">
+      <span class="coin-icon">🪙</span>
+      <span id="balanceDisplay">1.000</span> PTS
+    </div>
+  </header>
+
+  <!-- Banners Promocionais Recreativos -->
+  <div class="banner-container">
+    <div class="banner">
+      <span class="banner-badge">Diversão Grátis</span>
+      <h2>Desafio do Tigre 🐉</h2>
+      <p>Jogue rodadas recreativas e acumule pontos de demonstração na Arena!</p>
+      <button class="banner-btn" onclick="openSlotGame()">Jogar Agora</button>
+    </div>
+  </div>
+
+  <!-- Buscador -->
+  <div class="search-box">
+    <input type="text" class="search-input" id="searchInput" placeholder="Buscar minijogo casual..." oninput="filterGames()">
+  </div>
+
+  <!-- Categorias -->
+  <div class="categories">
+    <button class="category-chip active">🔥 Populares</button>
+    <button class="category-chip">🐲 Temáticos</button>
+    <button class="category-chip">⚡ Arcade</button>
+    <button class="category-chip">🎲 Cartas e Dados</button>
+  </div>
+
+  <!-- Lista de Jogos -->
+  <div class="section-title">🔥 Jogos em Destaque</div>
+  <div class="games-grid" id="gamesGrid">
+    
+    <!-- Jogo 1: Slot Asiático -->
+    <div class="game-card" onclick="openSlotGame()">
+      <div class="game-thumb asian
