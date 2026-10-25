@@ -6,7 +6,7 @@
 <header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
 <main>
 <section class="balance" aria-live="polite"><small>SUA PONTUAÇÃO DE DEMONSTRAÇÃO</small><strong id="balance">1.000</strong><span>pontos fictícios · sem valor monetário</span></section>
-<section class="panel" id="playersPanel"><h2>Jogadores individuais — demonstração</h2><p>Adicione nomes e pontuações fictícias para ver como uma parcela demonstrativa de 30% seria distribuída proporcionalmente. Não há dinheiro, pagamentos nem contas online neste exemplo.</p><label for="playerName">Nome do jogador</label><input id="playerName" maxlength="30" autocomplete="off" placeholder="Digite um nome" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><label for="playerPoints">Pontuação fictícia do jogador</label><input id="playerPoints" type="number" min="1" max="1000000" value="100" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><p><button class="primary" id="addPlayer" type="button">Adicionar / atualizar jogador</button></p><p><button class="secondary" id="clearPlayers" type="button">Limpar lista de demonstração</button></p><div class="result" id="playersResult" role="status" aria-live="polite">Nenhum jogador adicionado ainda.</div><div id="playersList"></div><div class="result" id="allocationSummary">Simulação com 1.000 pontos fictícios: 300 pontos para jogadores e 700 pontos para a plataforma. Sem dinheiro real.</div></section>
+<section class="panel" id="playersPanel"><h2>Jogadores individuais — demonstração</h2><p>Adicione nomes e pontuações fictícias para ver a distribuição proporcional de pontos. A lista pode ser salva somente neste navegador; não é uma conta online e não sincroniza com outros aparelhos. Evite usar dados pessoais sensíveis.</p><label for="playerName">Nome do jogador</label><input id="playerName" maxlength="30" autocomplete="off" placeholder="Digite um nome" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><label for="playerPoints">Pontuação fictícia do jogador</label><input id="playerPoints" type="number" min="1" max="1000000" value="100" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><p><button class="primary" id="addPlayer" type="button">Adicionar / atualizar jogador</button></p><p><button class="secondary" id="clearPlayers" type="button">Limpar lista de demonstração</button></p><div class="result" id="playersResult" role="status" aria-live="polite">Nenhum jogador adicionado ainda.</div><div id="playersList"></div><div class="result" id="allocationSummary">Simulação com 1.000 pontos fictícios: 300 pontos para jogadores e 700 pontos para a plataforma. Sem dinheiro real.</div></section>
 <div class="headrow"><h2>Escolha um jogo</h2><button class="reset" id="resetScore" type="button">Reiniciar pontos</button></div>
 <nav class="menu" aria-label="Escolher minijogo">
 <button class="game-btn" type="button" data-game="roulette" aria-pressed="false"><span class="game-number">01</span><span>Roleta numerada</span><span class="hint">Escolha uma cor</span></button>
@@ -37,7 +37,11 @@ document.getElementById('playReflex').addEventListener('click',function(){var n=
 // Distribuição demonstrativa somente com pontos fictícios.
 var players=[];
 var DEMO_POOL=1000;
+var STORAGE_KEY='arenaSorteDemoPlayersV1';
+function savePlayers(){try{window.localStorage.setItem(STORAGE_KEY,JSON.stringify(players))}catch(e){}}
+function loadPlayers(){try{var saved=JSON.parse(window.localStorage.getItem(STORAGE_KEY)||'[]');if(Array.isArray(saved)){players=saved.filter(function(p){return p&&typeof p.name==='string'&&Number.isInteger(p.points)&&p.points>0&&p.points<=1000000}).slice(0,200)}}catch(e){players=[]}}
 function renderPlayers(){
+ savePlayers();
  var list=document.getElementById('playersList'),result=document.getElementById('playersResult'),summary=document.getElementById('allocationSummary');
  list.innerHTML='';
  var total=players.reduce(function(sum,p){return sum+p.points},0);
@@ -65,7 +69,8 @@ document.getElementById('addPlayer').addEventListener('click',function(){
  document.getElementById('playerName').value='';
  renderPlayers();
 });
-document.getElementById('clearPlayers').addEventListener('click',function(){players=[];renderPlayers()});
+document.getElementById('clearPlayers').addEventListener('click',function(){players=[];try{window.localStorage.removeItem(STORAGE_KEY)}catch(e){}renderPlayers()});
+loadPlayers();renderPlayers();
 update();show('roulette');
 })();
 </script></body></html>
