@@ -67,6 +67,24 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
 .robot-assistant{position:fixed;right:14px;bottom:16px;z-index:1000;display:flex;align-items:center;gap:10px;max-width:min(340px,calc(100vw - 28px));padding:10px 12px;border:1px solid #c9a34e;border-radius:18px;background:linear-gradient(145deg,#172235f5,#080c14f5);box-shadow:0 10px 35px #0009,0 0 22px #d5a63a20;color:#fff;backdrop-filter:blur(12px)}
 .robot-avatar{width:48px;height:48px;flex:0 0 48px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#ffe08a,#c58a24);font-size:29px;box-shadow:inset 0 1px 2px #fff9;animation:robotBob 2.4s ease-in-out infinite}
 .robot-copy{min-width:0;flex:1}.robot-copy strong{display:block;font-size:13px;color:#f3c969;margin-bottom:3px}.robot-copy p{margin:0;color:#e0e7f1;font-size:12px;line-height:1.35}.robot-actions{display:flex;flex-direction:column;gap:5px}.robot-actions button{border:1px solid #6b582d;background:#c99c40;color:#16120a;border-radius:9px;padding:7px 9px;font:inherit;font-size:11px;font-weight:800;cursor:pointer}.robot-actions .robot-close{background:#151e2d;color:#f3c969;border-color:#43516a}@keyframes robotBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@media(max-width:430px){.robot-assistant{right:9px;bottom:9px;padding:8px;gap:8px}.robot-avatar{width:40px;height:40px;flex-basis:40px;font-size:24px}.robot-copy p{font-size:11px}.robot-actions button{padding:7px}}
+
+/* Cartões cinematográficos por tema: fundos exclusivos e responsivos */
+.menu .game-btn{position:relative;isolation:isolate;overflow:hidden;min-height:150px;background:linear-gradient(145deg,#111827,#070b12);border-color:#344155}
+.menu .game-btn::before{content:"";position:absolute;inset:0;z-index:-2;opacity:.96;background:radial-gradient(ellipse at 75% 20%,var(--scene-glow,#d9a44155),transparent 55%),linear-gradient(145deg,var(--scene-a,#1a2940),var(--scene-b,#080d16) 72%)}
+.menu .game-btn::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,#05070b05 15%,#05070bce 100%),linear-gradient(110deg,transparent 30%,#ffffff0b 50%,transparent 70%);border-radius:inherit}
+.menu .game-btn .game-art{display:grid;place-items:center;width:64px;height:64px;margin:8px auto 5px;border:1px solid #ffffff30;border-radius:20px;background:linear-gradient(145deg,#ffffff20,#00000028);box-shadow:0 8px 24px #0007,inset 0 1px #ffffff30;font-size:36px;filter:drop-shadow(0 5px 9px #0009);transition:transform .2s ease}
+.menu .game-btn:hover .game-art,.menu .game-btn:focus-visible .game-art{transform:translateY(-3px) scale(1.06)}
+.menu .game-btn>span:not(.game-art){position:relative;z-index:1}.menu .game-btn .game-number{color:#f4d17c}.menu .game-btn .hint{color:#c2ccda}
+.menu .game-btn[data-game="roulette"]{--scene-a:#40201e;--scene-b:#100d18;--scene-glow:#e4a33c88}
+.menu .game-btn[data-game="cards"]{--scene-a:#172f27;--scene-b:#091310;--scene-glow:#58c59b66}
+.menu .game-btn[data-game="dice"]{--scene-a:#24314a;--scene-b:#090e18;--scene-glow:#78aaff77}
+.menu .game-btn[data-game="reflex"]{--scene-a:#3b1b49;--scene-b:#0b0c1a;--scene-glow:#c36dff77}
+.menu .game-btn[data-game="tri-gringo"]{--scene-a:#294126;--scene-b:#0c150c;--scene-glow:#d7c34b77}
+.menu .game-btn[data-game="fortune-dragon"]{--scene-a:#4a1b18;--scene-b:#170b10;--scene-glow:#ff6a3977}
+.menu .game-btn[data-game="pinhata"]{--scene-a:#48213c;--scene-b:#170c20;--scene-glow:#ff73d477}
+.menu .game-btn[data-game^="extra-"]{--scene-a:#1b2944;--scene-b:#090e19;--scene-glow:#4b9aff66}
+.menu .game-btn[data-game="extra-2n"]{--scene-a:#263a42;--scene-b:#091419;--scene-glow:#50d6d066}
+@media(min-width:850px){.menu .game-btn{min-height:166px}}
 </style></head><body>
 <header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
 <nav class="arena-nav" aria-label="Navegação principal"><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#plansPanel">Planos</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
