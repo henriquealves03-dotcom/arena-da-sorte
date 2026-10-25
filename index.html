@@ -1,1 +1,125 @@
 
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arena da Sorte</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#100d19;color:#fff;font-family:Arial,sans-serif}
+header{text-align:center;padding:28px 12px;background:#211633;border-bottom:2px solid #d7a842}
+h1{color:#f6cf69;margin:0 0 8px}
+header p{margin:0;color:#ddd}
+main{max-width:650px;margin:auto;padding:18px}
+.saldo,.painel{background:#211a30;border:1px solid #514064;border-radius:16px;padding:18px;margin-bottom:16px;text-align:center}
+.saldo strong{display:block;color:#f6cf69;font-size:30px;margin-top:8px}
+h2{color:#f6cf69}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button{border:0;border-radius:12px;padding:14px 10px;background:#493065;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+button:active{transform:scale(.98)}
+.menu button{min-height:66px;border:1px solid #78569b}
+.jogo{margin-top:18px}
+input,select{padding:12px;border-radius:8px;border:1px solid #8a76a0;background:#130f1b;color:white;max-width:100%}
+.resultado{font-size:24px;color:#f6cf69;margin:18px 0;min-height:32px}
+.pequeno{font-size:13px;color:#c9bfd6;line-height:1.5}
+.oculto{display:none}
+footer{text-align:center;color:#aaa;font-size:12px;padding:20px}
+</style>
+</head>
+<body>
+<header>
+<h1>✦ ARENA DA SORTE ✦</h1>
+<p>Entre na diversão. Jogue com pontos fictícios!</p>
+</header>
+<main>
+<div class="saldo">SEU SALDO DE DEMONSTRAÇÃO<strong><span id="saldo">1000</span> pontos</strong></div>
+<h2>Escolha seu jogo</h2>
+<div class="menu">
+<button onclick="abrir('roleta')">🎡 Roleta</button>
+<button onclick="abrir('cartas')">🃏 Cartas</button>
+<button onclick="abrir('dados')">🎲 Dados</button>
+<button onclick="abrir('crash')">🚀 Crash</button>
+</div>
+
+<section id="inicio" class="painel jogo">
+<h2>Bem-vindo!</h2>
+<p>Escolha um dos quatro jogos para começar.</p>
+<p class="pequeno">Você começa com 1.000 pontos fictícios. Nenhum prêmio em dinheiro é oferecido.</p>
+</section>
+
+<section id="roleta" class="painel jogo oculto">
+<h2>🎡 Roleta</h2>
+<p>Escolha uma cor. Acertar rende pontos fictícios.</p>
+<select id="cor"><option value="vermelho">Vermelho</option><option value="preto">Preto</option><option value="verde">Verde</option></select>
+<p><button onclick="jogarRoleta()">Girar roleta</button></p>
+<div id="r1" class="resultado"></div>
+</section>
+
+<section id="cartas" class="painel jogo oculto">
+<h2>🃏 Maior carta</h2>
+<p>Você e o computador recebem uma carta. A maior vence.</p>
+<button onclick="jogarCartas()">Distribuir cartas</button>
+<div id="r2" class="resultado"></div>
+</section>
+
+<section id="dados" class="painel jogo oculto">
+<h2>🎲 Dados</h2>
+<p>Escolha um número de 1 a 6.</p>
+<select id="numero"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
+<p><button onclick="jogarDados()">Lançar dado</button></p>
+<div id="r3" class="resultado"></div>
+</section>
+
+<section id="crash" class="painel jogo oculto">
+<h2>🚀 Crash de demonstração</h2>
+<p>Defina quantos pontos fictícios quer usar nesta rodada.</p>
+<input id="aposta" type="number" min="1" max="100" value="10">
+<p><button onclick="jogarCrash()">Iniciar rodada</button></p>
+<div id="r4" class="resultado"></div>
+<p class="pequeno">O multiplicador é apenas uma simulação, sem dinheiro real.</p>
+</section>
+<p><button onclick="voltar()">⬅ Voltar ao menu</button></p>
+<footer>ARENA DA SORTE · JOGOS DE DEMONSTRAÇÃO · SEM VALOR MONETÁRIO</footer>
+</main>
+<script>
+let pontos=1000;
+function atualizar(){document.getElementById('saldo').textContent=pontos}
+function abrir(id){document.querySelectorAll('.jogo').forEach(x=>x.classList.add('oculto'));document.getElementById(id).classList.remove('oculto')}
+function voltar(){abrir('inicio')}
+function jogarRoleta(){
+let cores=['vermelho','preto','vermelho','preto','vermelho','preto','verde'];
+let sorteada=cores[Math.floor(Math.random()*cores.length)];
+let escolha=document.getElementById('cor').value;
+let ganho=escolha===sorteada?(sorteada==='verde'?100:20):0;
+pontos+=ganho;atualizar();
+document.getElementById('r1').textContent='Saiu '+sorteada+'! '+(ganho?'Você ganhou '+ganho+' pontos.':'Não pontuou nesta rodada.');
+}
+function jogarCartas(){
+let nomes=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+let a=Math.floor(Math.random()*13),b=Math.floor(Math.random()*13);
+let valores=[1,2,3,4,5,6,7,8,9,10,11,12,13];
+let v=valores[a]-valores[b],ganho=v>0?20:v===0?5:0;
+pontos+=ganho;atualizar();
+document.getElementById('r2').textContent='Sua carta: '+nomes[a]+' · Computador: '+nomes[b]+'. '+(ganho?'Você ganhou '+ganho+' pontos!':v===0?'Empate!':'Desta vez o computador venceu.');
+}
+function jogarDados(){
+let escolha=Number(document.getElementById('numero').value);
+let dado=1+Math.floor(Math.random()*6),ganho=escolha===dado?30:0;
+pontos+=ganho;atualizar();
+document.getElementById('r3').textContent='O dado mostrou '+dado+'. '+(ganho?'Você ganhou 30 pontos!':'Não pontuou desta vez.');
+}
+function jogarCrash(){
+let campo=document.getElementById('aposta'),n=Number(campo.value);
+if(!Number.isInteger(n)||n<1||n>100){document.getElementById('r4').textContent='Digite de 1 a 100 pontos.';return}
+if(n>pontos){document.getElementById('r4').textContent='Saldo fictício insuficiente.';return}
+let multiplicador=(1+Math.random()*3).toFixed(2);
+pontos-=n;
+let premio=Math.random()<0.65?Math.floor(n*Number(multiplicador)):0;
+pontos+=premio;atualizar();
+document.getElementById('r4').textContent=premio?'Multiplicador '+multiplicador+'x! Resultado simulado: +'+premio+' pontos.':'A rodada encerrou! Você usou '+n+' pontos fictícios.';
+}
+</script>
+</body>
+</html>
