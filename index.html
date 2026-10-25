@@ -1,327 +1,207 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arena da Sorte</title>
-<
-<style>
-* {
-  box-sizing: border-box;
-}
-
-:root {
-  color-scheme: dark;
-  --fundo: #090b12;
-  --painel: #131827;
-  --borda: #293247;
-  --dourado: #f4c65e;
-  --texto: #f7f8fc;
-  --suave: #aab3c7;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background:
-    radial-gradient(ellipse at top, #25203b 0%, transparent 55%),
-    var(--fundo);
-  color: var(--texto);
-  font-family: -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Arial, sans-serif;
-  line-height: 1.6;
-}
-
-header {
-  text-align: center;
-  padding: 34px 16px 30px;
-  background: linear-gradient(135deg, #171c2d, #10131e);
-  border-bottom: 1px solid #b68b38;
-  box-shadow: 0 10px 35px #0005;
-}
-
-h1 {
-  color: var(--dourado);
-  font-size: clamp(25px, 6vw, 36px);
-  letter-spacing: 1.5px;
-  line-height: 1.25;
-  margin: 0 0 10px;
-}
-
-header p {
-  margin: 0;
-  color: var(--suave);
-  font-size: 14px;
-}
-
-main {
-  width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 24px 16px;
-}
-
-h2 {
-  color: var(--dourado);
-  font-size: 21px;
-  margin: 0 0 12px;
-}
-
-.saldo,
-.painel {
-  background: linear-gradient(145deg, #181f30, #111624);
-  border: 1px solid var(--borda);
-  border-radius: 20px;
-  padding: 22px;
-  margin-bottom: 18px;
-  box-shadow: 0 12px 28px #0003;
-}
-
-.saldo {
-  text-align: center;
-  color: var(--suave);
-  font-size: 13px;
-  letter-spacing: 1px;
-}
-
-.saldo strong {
-  display: block;
-  color: var(--dourado);
-  font-size: clamp(27px, 7vw, 36px);
-  margin-top: 7px;
-  letter-spacing: 0;
-}
-
-.menu {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 16px 0 22px;
-}
-
-button {
-  width: 100%;
-  min-height: 50px;
-  border: 1px solid #e6b84d;
-  border-radius: 13px;
-  padding: 13px 16px;
-  background: linear-gradient(135deg, #f4cf78, #dba63c);
-  color: #17130a;
-  font-size: 15px;
-  font-weight: 750;
-  cursor: pointer;
-  transition: transform .15s, filter .15s;
-}
-
-button:active {
-  transform: scale(.98);
-  filter: brightness(.92);
-}
-
-.menu button {
-  min-height: 76px;
-  background: linear-gradient(145deg, #202940, #151c2c);
-  color: var(--texto);
-  border: 1px solid #394762;
-  font-size: 16px;
-}
-
-.menu button:hover {
-  border-color: var(--dourado);
-}
-
-.jogo {
-  margin-top: 18px;
-}
-
-.jogo p {
-  color: #d3d9e6;
-}
-
-input,
-select {
-  width: 100%;
-  max-width: 100%;
-  min-height: 48px;
-  padding: 12px 14px;
-  border-radius: 11px;
-  border: 1px solid #394762;
-  background: #0b101c;
-  color: var(--texto);
-  font-size: 16px;
-}
-
-.resultado {
-  color: var(--dourado);
-  font-size: 18px;
-  font-weight: 650;
-  line-height: 1.5;
-  margin: 18px 0;
-  min-height: 32px;
-  overflow-wrap: anywhere;
-}
-
-.pequeno {
-  color: var(--suave);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.oculto {
-  display: none;
-}
-
-footer {
-  text-align: center;
-  color: #8e98ad;
-  font-size: 11px;
-  letter-spacing: .7px;
-  padding: 24px 8px;
-  border-top: 1px solid var(--borda);
-  margin-top: 24px;
-}
-
-@media (max-width: 420px) {
-  header {
-    padding: 28px 12px;
-  }
-
-  main {
-    padding: 20px 12px;
-  }
-
-  .saldo,
-  .painel {
-    padding: 18px;
-    border-radius: 16px;
-  }
-
-  .menu {
-    gap: 9px;
-  }
-
-  .menu button {
-    padding: 12px 8px;
-    font-size: 14px;
-  }
-}
-</style>
-
-*{box-sizing:border-box}
-body{margin:0;background:#100d19;color:#fff;font-family:Arial,sans-serif}
-header{text-align:center;padding:28px 12px;background:#211633;border-bottom:2px solid #d7a842}
-h1{color:#f6cf69;margin:0 0 8px}
-header p{margin:0;color:#ddd}
-main{max-width:650px;margin:auto;padding:18px}
-.saldo,.painel{background:#211a30;border:1px solid #514064;border-radius:16px;padding:18px;margin-bottom:16px;text-align:center}
-.saldo strong{display:block;color:#f6cf69;font-size:30px;margin-top:8px}
-h2{color:#f6cf69}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-button{border:0;border-radius:12px;padding:14px 10px;background:#493065;color:white;font-size:16px;font-weight:bold;cursor:pointer}
-button:active{transform:scale(.98)}
-.menu button{min-height:66px;border:1px solid #78569b}
-.jogo{margin-top:18px}
-input,select{padding:12px;border-radius:8px;border:1px solid #8a76a0;background:#130f1b;color:white;max-width:100%}
-.resultado{font-size:24px;color:#f6cf69;margin:18px 0;min-height:32px}
-.pequeno{font-size:13px;color:#c9bfd6;line-height:1.5}
-.oculto{display:none}
-footer{text-align:center;color:#aaa;font-size:12px;padding:20px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b12">
+  <title>Arena da Sorte</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      color-scheme: dark;
+      --fundo: #090b12;
+      --painel: #131827;
+      --borda: #293247;
+      --dourado: #f4c65e;
+      --texto: #f7f8fc;
+      --suave: #aab3c7;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at top, #25203b 0%, transparent 55%), var(--fundo);
+      color: var(--texto);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.6;
+    }
+    header {
+      text-align: center;
+      padding: 32px 16px 28px;
+      background: linear-gradient(135deg, #171c2d, #10131e);
+      border-bottom: 1px solid #b68b38;
+      box-shadow: 0 10px 35px #0005;
+    }
+    h1 {
+      color: var(--dourado);
+      font-size: clamp(25px, 6vw, 36px);
+      letter-spacing: 1.5px;
+      line-height: 1.25;
+      margin: 0 0 10px;
+    }
+    header p { margin: 0; color: var(--suave); font-size: 14px; }
+    main { width: 100%; max-width: 760px; margin: 0 auto; padding: 24px 16px; }
+    h2 { color: var(--dourado); font-size: 21px; margin: 0 0 12px; }
+    .saldo, .painel {
+      background: linear-gradient(145deg, #181f30, #111624);
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 28px #0003;
+    }
+    .saldo { text-align: center; color: var(--suave); font-size: 13px; letter-spacing: 1px; }
+    .saldo strong { display: block; color: var(--dourado); font-size: clamp(27px, 7vw, 36px); margin-top: 7px; letter-spacing: 0; }
+    .menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0 22px; }
+    button {
+      width: 100%; min-height: 50px; border: 1px solid #e6b84d; border-radius: 13px;
+      padding: 13px 16px; background: linear-gradient(135deg, #f4cf78, #dba63c);
+      color: #17130a; font-size: 15px; font-weight: 750; cursor: pointer;
+      transition: transform .15s, filter .15s;
+    }
+    button:active { transform: scale(.98); filter: brightness(.92); }
+    button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .menu button { min-height: 76px; background: linear-gradient(145deg, #202940, #151c2c); color: var(--texto); border: 1px solid #394762; font-size: 16px; }
+    .menu button:hover { border-color: var(--dourado); }
+    .jogo { margin-top: 18px; }
+    .jogo p { color: #d3d9e6; }
+    input, select {
+      width: 100%; max-width: 100%; min-height: 48px; padding: 12px 14px;
+      border-radius: 11px; border: 1px solid #394762; background: #0b101c;
+      color: var(--texto); font-size: 16px;
+    }
+    .resultado { color: var(--dourado); font-size: 18px; font-weight: 650; line-height: 1.5; margin: 18px 0; min-height: 32px; overflow-wrap: anywhere; }
+    .pequeno { color: var(--suave); font-size: 13px; line-height: 1.7; }
+    .oculto { display: none; }
+    footer { text-align: center; color: #8e98ad; font-size: 11px; letter-spacing: .7px; padding: 24px 8px; border-top: 1px solid var(--borda); margin-top: 24px; }
+    @media (max-width: 420px) {
+      header { padding: 28px 12px; }
+      main { padding: 20px 12px; }
+      .saldo, .painel { padding: 18px; border-radius: 16px; }
+      .menu { gap: 9px; }
+      .menu button { padding: 12px 8px; font-size: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
+  </style>
 </head>
 <body>
-<header>
-<h1>✦ ARENA DA SORTE ✦</h1>
-<p>Entre na diversão. Jogue com pontos fictícios!</p>
-</header>
-<main>
-<div class="saldo">SEU SALDO DE DEMONSTRAÇÃO<strong><span id="saldo">1000</span> pontos</strong></div>
-<h2>Escolha seu jogo</h2>
-<div class="menu">
-<button onclick="abrir('roleta')">🎡 Roleta</button>
-<button onclick="abrir('cartas')">🃏 Cartas</button>
-<button onclick="abrir('dados')">🎲 Dados</button>
-<button onclick="abrir('crash')">🚀 Crash</button>
-</div>
+  <header>
+    <h1>✦ ARENA DA SORTE ✦</h1>
+    <p>Entre na diversão. Jogue com pontos fictícios!</p>
+  </header>
+  <main>
+    <div class="saldo" aria-live="polite">SEU SALDO DE DEMONSTRAÇÃO<strong><span id="saldo">1000</span> pontos</strong></div>
+    <h2>Escolha seu jogo</h2>
+    <nav class="menu" aria-label="Jogos disponíveis">
+      <button type="button" onclick="abrir('roleta')">🎡 Roleta</button>
+      <button type="button" onclick="abrir('cartas')">🃏 Cartas</button>
+      <button type="button" onclick="abrir('dados')">🎲 Dados</button>
+      <button type="button" onclick="abrir('crash')">🚀 Crash</button>
+    </nav>
 
-<section id="inicio" class="painel jogo">
-<h2>Bem-vindo!</h2>
-<p>Escolha um dos quatro jogos para começar.</p>
-<p class="pequeno">Você começa com 1.000 pontos fictícios. Nenhum prêmio em dinheiro é oferecido.</p>
-</section>
+    <section id="inicio" class="painel jogo">
+      <h2>Bem-vindo!</h2>
+      <p>Escolha um dos quatro jogos para começar.</p>
+      <p class="pequeno">Você começa com 1.000 pontos fictícios. Os pontos não podem ser comprados, sacados ou trocados por dinheiro ou prêmios.</p>
+    </section>
 
-<section id="roleta" class="painel jogo oculto">
-<h2>🎡 Roleta</h2>
-<p>Escolha uma cor. Acertar rende pontos fictícios.</p>
-<select id="cor"><option value="vermelho">Vermelho</option><option value="preto">Preto</option><option value="verde">Verde</option></select>
-<p><button onclick="jogarRoleta()">Girar roleta</button></p>
-<div id="r1" class="resultado"></div>
-</section>
+    <section id="roleta" class="painel jogo oculto">
+      <h2>🎡 Roleta</h2>
+      <p>Escolha uma cor. Acertar rende pontos fictícios.</p>
+      <label for="cor">Sua cor</label>
+      <select id="cor"><option value="vermelho">Vermelho</option><option value="preto">Preto</option><option value="verde">Verde</option></select>
+      <p><button type="button" onclick="jogarRoleta()">Girar roleta</button></p>
+      <div id="r1" class="resultado" role="status" aria-live="polite"></div>
+    </section>
 
-<section id="cartas" class="painel jogo oculto">
-<h2>🃏 Maior carta</h2>
-<p>Você e o computador recebem uma carta. A maior vence.</p>
-<button onclick="jogarCartas()">Distribuir cartas</button>
-<div id="r2" class="resultado"></div>
-</section>
+    <section id="cartas" class="painel jogo oculto">
+      <h2>🃏 Maior carta</h2>
+      <p>Você e o computador recebem uma carta. A maior vence.</p>
+      <button type="button" onclick="jogarCartas()">Distribuir cartas</button>
+      <div id="r2" class="resultado" role="status" aria-live="polite"></div>
+    </section>
 
-<section id="dados" class="painel jogo oculto">
-<h2>🎲 Dados</h2>
-<p>Escolha um número de 1 a 6.</p>
-<select id="numero"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
-<p><button onclick="jogarDados()">Lançar dado</button></p>
-<div id="r3" class="resultado"></div>
-</section>
+    <section id="dados" class="painel jogo oculto">
+      <h2>🎲 Dados</h2>
+      <p>Escolha um número de 1 a 6.</p>
+      <label for="numero">Seu número</label>
+      <select id="numero"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
+      <p><button type="button" onclick="jogarDados()">Lançar dado</button></p>
+      <div id="r3" class="resultado" role="status" aria-live="polite"></div>
+    </section>
 
-<section id="crash" class="painel jogo oculto">
-<h2>🚀 Crash de demonstração</h2>
-<p>Defina quantos pontos fictícios quer usar nesta rodada.</p>
-<input id="aposta" type="number" min="1" max="100" value="10">
-<p><button onclick="jogarCrash()">Iniciar rodada</button></p>
-<div id="r4" class="resultado"></div>
-<p class="pequeno">O multiplicador é apenas uma simulação, sem dinheiro real.</p>
-</section>
-<p><button onclick="voltar()">⬅ Voltar ao menu</button></p>
-<footer>ARENA DA SORTE · JOGOS DE DEMONSTRAÇÃO · SEM VALOR MONETÁRIO</footer>
-</main>
-<script>
-let pontos=1000;
-function atualizar(){document.getElementById('saldo').textContent=pontos}
-function abrir(id){document.querySelectorAll('.jogo').forEach(x=>x.classList.add('oculto'));document.getElementById(id).classList.remove('oculto')}
-function voltar(){abrir('inicio')}
-function jogarRoleta(){
-let cores=['vermelho','preto','vermelho','preto','vermelho','preto','verde'];
-let sorteada=cores[Math.floor(Math.random()*cores.length)];
-let escolha=document.getElementById('cor').value;
-let ganho=escolha===sorteada?(sorteada==='verde'?100:20):0;
-pontos+=ganho;atualizar();
-document.getElementById('r1').textContent='Saiu '+sorteada+'! '+(ganho?'Você ganhou '+ganho+' pontos.':'Não pontuou nesta rodada.');
-}
-function jogarCartas(){
-let nomes=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-let a=Math.floor(Math.random()*13),b=Math.floor(Math.random()*13);
-let valores=[1,2,3,4,5,6,7,8,9,10,11,12,13];
-let v=valores[a]-valores[b],ganho=v>0?20:v===0?5:0;
-pontos+=ganho;atualizar();
-document.getElementById('r2').textContent='Sua carta: '+nomes[a]+' · Computador: '+nomes[b]+'. '+(ganho?'Você ganhou '+ganho+' pontos!':v===0?'Empate!':'Desta vez o computador venceu.');
-}
-function jogarDados(){
-let escolha=Number(document.getElementById('numero').value);
-let dado=1+Math.floor(Math.random()*6),ganho=escolha===dado?30:0;
-pontos+=ganho;atualizar();
-document.getElementById('r3').textContent='O dado mostrou '+dado+'. '+(ganho?'Você ganhou 30 pontos!':'Não pontuou desta vez.');
-}
-function jogarCrash(){
-let campo=document.getElementById('aposta'),n=Number(campo.value);
-if(!Number.isInteger(n)||n<1||n>100){document.getElementById('r4').textContent='Digite de 1 a 100 pontos.';return}
-if(n>pontos){document.getElementById('r4').textContent='Saldo fictício insuficiente.';return}
-let multiplicador=(1+Math.random()*3).toFixed(2);
-pontos-=n;
-let premio=Math.random()<0.65?Math.floor(n*Number(multiplicador)):0;
-pontos+=premio;atualizar();
-document.getElementById('r4').textContent=premio?'Multiplicador '+multiplicador+'x! Resultado simulado: +'+premio+' pontos.':'A rodada encerrou! Você usou '+n+' pontos fictícios.';
-}
-</script>
+    <section id="crash" class="painel jogo oculto">
+      <h2>🚀 Crash de demonstração</h2>
+      <p>Defina quantos pontos fictícios quer usar nesta rodada.</p>
+      <label for="aposta">Pontos da rodada (1 a 100)</label>
+      <input id="aposta" type="number" min="1" max="100" step="1" value="10" inputmode="numeric">
+      <p><button type="button" onclick="jogarCrash()">Iniciar rodada</button></p>
+      <div id="r4" class="resultado" role="status" aria-live="polite"></div>
+      <p class="pequeno">O multiplicador é apenas uma simulação, sem dinheiro real.</p>
+    </section>
+    <p><button type="button" onclick="voltar()">⬅ Voltar ao menu</button></p>
+    <footer>ARENA DA SORTE · JOGOS DE DEMONSTRAÇÃO · SEM VALOR MONETÁRIO</footer>
+  </main>
+  <script>
+    let pontos = 1000;
+    function atualizar() {
+      document.getElementById('saldo').textContent = pontos.toLocaleString('pt-BR');
+    }
+    function abrir(id) {
+      document.querySelectorAll('.jogo').forEach(el => el.classList.add('oculto'));
+      const secao = document.getElementById(id);
+      if (secao) secao.classList.remove('oculto');
+    }
+    function voltar() { abrir('inicio'); }
+    function adicionarPontos(valor) {
+      if (Number.isFinite(valor) && valor > 0) pontos += Math.floor(valor);
+      atualizar();
+    }
+    function jogarRoleta() {
+      const cores = ['vermelho', 'preto', 'vermelho', 'preto', 'vermelho', 'preto', 'verde'];
+      const sorteada = cores[Math.floor(Math.random() * cores.length)];
+      const escolha = document.getElementById('cor').value;
+      const ganho = escolha === sorteada ? (sorteada === 'verde' ? 100 : 20) : 0;
+      adicionarPontos(ganho);
+      document.getElementById('r1').textContent = 'Saiu ' + sorteada + '! ' + (ganho ? 'Você ganhou ' + ganho + ' pontos fictícios.' : 'Não pontuou nesta rodada.');
+    }
+    function jogarCartas() {
+      const nomes = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+      const a = Math.floor(Math.random() * 13);
+      const b = Math.floor(Math.random() * 13);
+      const diferenca = a - b;
+      const ganho = diferenca > 0 ? 20 : diferenca === 0 ? 5 : 0;
+      adicionarPontos(ganho);
+      document.getElementById('r2').textContent = 'Sua carta: ' + nomes[a] + ' · Computador: ' + nomes[b] + '. ' + (ganho ? 'Você ganhou ' + ganho + ' pontos fictícios!' : diferenca === 0 ? 'Empate! Você ganhou 5 pontos fictícios.' : 'Desta vez o computador venceu.');
+    }
+    function jogarDados() {
+      const escolha = Number(document.getElementById('numero').value);
+      const dado = 1 + Math.floor(Math.random() * 6);
+      const ganho = escolha === dado ? 30 : 0;
+      adicionarPontos(ganho);
+      document.getElementById('r3').textContent = 'O dado mostrou ' + dado + '. ' + (ganho ? 'Você ganhou 30 pontos fictícios!' : 'Não pontuou desta vez.');
+    }
+    function jogarCrash() {
+      const campo = document.getElementById('aposta');
+      const n = Number(campo.value);
+      const resultado = document.getElementById('r4');
+      if (!Number.isInteger(n) || n < 1 || n > 100) {
+        resultado.textContent = 'Digite um valor inteiro de 1 a 100 pontos.';
+        return;
+      }
+      if (n > pontos) {
+        resultado.textContent = 'Saldo fictício insuficiente.';
+        return;
+      }
+      const multiplicador = Number((1 + Math.random() * 3).toFixed(2));
+      pontos -= n;
+      const ganhou = Math.random() < 0.65;
+      const premio = ganhou ? Math.floor(n * multiplicador) : 0;
+      pontos += premio;
+      atualizar();
+      resultado.textContent = ganhou
+        ? 'Multiplicador simulado: ' + multiplicador.toFixed(2) + 'x. Resultado: +' + premio + ' pontos fictícios.'
+        : 'A rodada encerrou. Foram usados ' + n + ' pontos fictícios.';
+    }
+  </script>
 </body>
 </html>
