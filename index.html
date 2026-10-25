@@ -85,9 +85,15 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
 .menu .game-btn[data-game^="extra-"]{--scene-a:#1b2944;--scene-b:#090e19;--scene-glow:#4b9aff66}
 .menu .game-btn[data-game="extra-2n"]{--scene-a:#263a42;--scene-b:#091419;--scene-glow:#50d6d066}
 @media(min-width:850px){.menu .game-btn{min-height:166px}}
+
+.update-all-wrap{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:#0c121d;border-bottom:1px solid #263448}
+.update-all-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:9px 14px;border:1px solid #c9a34e;border-radius:12px;background:linear-gradient(135deg,#f3d783,#c89a3d);color:#17120a;font:inherit;font-weight:850;cursor:pointer;box-shadow:0 4px 16px #c99c4022}
+.update-all-button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.update-all-note{font-size:11px;color:#aebbd0;text-align:center}
 </style></head><body>
 <header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
 <nav class="arena-nav" aria-label="Navegação principal"><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#plansPanel">Planos</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
+<div class="update-all-wrap"><button class="update-all-button" type="button" id="updateAllButton"><span aria-hidden="true">↻</span> Atualizar tudo</button><span class="update-all-note" id="updateAllNote" role="status" aria-live="polite">Carrega a versão mais recente do site</span></div>
 <main>
 <section class="balance" aria-live="polite"><small>SUA PONTUAÇÃO DE DEMONSTRAÇÃO</small><strong id="balance">1.000</strong><span>pontos fictícios · sem valor monetário</span></section>
 <section class="panel game-panel home-panel" id="homePanel">
@@ -167,6 +173,17 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
 <script>
 (function(){
 'use strict';
+var updateAllButton=document.getElementById('updateAllButton'),updateAllNote=document.getElementById('updateAllNote');
+if(updateAllButton){updateAllButton.addEventListener('click',function(){
+ if(updateAllNote)updateAllNote.textContent='Verificando a versão mais recente…';
+ updateAllButton.disabled=true;
+ try{
+  var url=new URL(window.location.href);url.searchParams.set('refresh',String(Date.now()));
+  window.location.replace(url.toString());
+ }catch(e){
+  window.location.reload();
+ }
+});}
 var score=1000, balance=document.getElementById('balance'), panels=Array.from(document.querySelectorAll('.game-panel')), buttons=Array.from(document.querySelectorAll('[data-game]'));
 function update(){balance.textContent=score.toLocaleString('pt-BR')}
 function add(n){score+=Math.max(0,Math.floor(Number(n)||0));update()}
