@@ -1,190 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090b12">
-  <title>Arena da Sorte — Jogos Recreativos</title>
-  <style>
-    * { box-sizing: border-box; }
-    :root {
-      color-scheme: dark;
-      --fundo: #090b12;
-      --painel: #131827;
-      --borda: #293247;
-      --dourado: #f4c65e;
-      --texto: #f7f8fc;
-      --suave: #aab3c7;
-    }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(ellipse at top, #25203b 0%, transparent 55%), var(--fundo);
-      color: var(--texto);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      line-height: 1.6;
-    }
-    header {
-      text-align: center;
-      padding: 32px 16px 28px;
-      background: linear-gradient(135deg, #171c2d, #10131e);
-      border-bottom: 1px solid #b68b38;
-      box-shadow: 0 10px 35px #0005;
-    }
-    h1 {
-      color: var(--dourado);
-      font-size: clamp(25px, 6vw, 36px);
-      letter-spacing: 1.5px;
-      line-height: 1.25;
-      margin: 0 0 10px;
-    }
-    header p { margin: 0; color: var(--suave); font-size: 14px; }
-    main { width: 100%; max-width: 760px; margin: 0 auto; padding: 24px 16px; }
-    h2 { color: var(--dourado); font-size: 21px; margin: 0 0 12px; }
-    .saldo, .painel {
-      background: linear-gradient(145deg, #181f30, #111624);
-      border: 1px solid var(--borda);
-      border-radius: 20px;
-      padding: 22px;
-      margin-bottom: 18px;
-      box-shadow: 0 12px 28px #0003;
-    }
-    .saldo { text-align: center; color: var(--suave); font-size: 13px; letter-spacing: 1px; }
-    .saldo strong { display: block; color: var(--dourado); font-size: clamp(27px, 7vw, 36px); margin-top: 7px; letter-spacing: 0; }
-    .menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0 22px; }
-    button {
-      width: 100%; min-height: 50px; border: 1px solid #e6b84d; border-radius: 13px;
-      padding: 13px 16px; background: linear-gradient(135deg, #f4cf78, #dba63c);
-      color: #17130a; font-size: 15px; font-weight: 750; cursor: pointer;
-      transition: transform .15s, filter .15s;
-    }
-    button:active { transform: scale(.98); filter: brightness(.92); }
-    button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-    .menu button { min-height: 76px; background: linear-gradient(145deg, #202940, #151c2c); color: var(--texto); border: 1px solid #394762; font-size: 16px; }
-    .menu button:hover { border-color: var(--dourado); }
-    .jogo { margin-top: 18px; }
-    .jogo p { color: #d3d9e6; }
-    input, select {
-      width: 100%; max-width: 100%; min-height: 48px; padding: 12px 14px;
-      border-radius: 11px; border: 1px solid #394762; background: #0b101c;
-      color: var(--texto); font-size: 16px;
-    }
-    .resultado { color: var(--dourado); font-size: 18px; font-weight: 650; line-height: 1.5; margin: 18px 0; min-height: 32px; overflow-wrap: anywhere; }
-    .pequeno { color: var(--suave); font-size: 13px; line-height: 1.7; }
-    .oculto { display: none; }
-    footer { text-align: center; color: #8e98ad; font-size: 11px; letter-spacing: .7px; padding: 24px 8px; border-top: 1px solid var(--borda); margin-top: 24px; }
-    @media (max-width: 420px) {
-      header { padding: 28px 12px; }
-      main { padding: 20px 12px; }
-      .saldo, .painel { padding: 18px; border-radius: 16px; }
-      .menu { gap: 9px; }
-      .menu button { padding: 12px 8px; font-size: 14px; }
-    }
-    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>✦ ARENA DA SORTE ✦</h1>
-    <p>Diversão casual com pontuação fictícia — sem apostas ou prêmios.</p>
-  </header>
-  <main>
-    <div class="saldo" aria-live="polite">SEU SALDO DE DEMONSTRAÇÃO<strong><span id="saldo">1000</span> pontos</strong></div>
-    <h2>Escolha seu jogo</h2>
-    <nav class="menu" aria-label="Jogos disponíveis">
-      <button type="button" onclick="abrir('roleta')">🎡 Roleta</button>
-      <button type="button" onclick="abrir('cartas')">🃏 Cartas</button>
-      <button type="button" onclick="abrir('dados')">🎲 Dados</button>
-      <button type="button" onclick="abrir('crash')">⚡ Reflexo</button>
-    </nav>
-
-    <section id="inicio" class="painel jogo">
-      <h2>Bem-vindo!</h2>
-      <p>Escolha um dos quatro jogos para começar.</p>
-      <p class="pequeno">Você começa com 1.000 pontos fictícios. Os pontos não podem ser comprados, sacados ou trocados por dinheiro ou prêmios.</p>
-    </section>
-
-    <section id="roleta" class="painel jogo oculto">
-      <h2>🎡 Roleta</h2>
-      <p>Escolha uma cor. Acertar rende pontos fictícios.</p>
-      <label for="cor">Sua cor</label>
-      <select id="cor"><option value="vermelho">Vermelho</option><option value="preto">Preto</option><option value="verde">Verde</option></select>
-      <p><button type="button" onclick="jogarRoleta()">Girar roleta</button></p>
-      <div id="r1" class="resultado" role="status" aria-live="polite"></div>
-    </section>
-
-    <section id="cartas" class="painel jogo oculto">
-      <h2>🃏 Maior carta</h2>
-      <p>Você e o computador recebem uma carta. A maior vence.</p>
-      <button type="button" onclick="jogarCartas()">Distribuir cartas</button>
-      <div id="r2" class="resultado" role="status" aria-live="polite"></div>
-    </section>
-
-    <section id="dados" class="painel jogo oculto">
-      <h2>🎲 Dados</h2>
-      <p>Escolha um número de 1 a 6.</p>
-      <label for="numero">Seu número</label>
-      <select id="numero"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
-      <p><button type="button" onclick="jogarDados()">Lançar dado</button></p>
-      <div id="r3" class="resultado" role="status" aria-live="polite"></div>
-    </section>
-
-    <section id="crash" class="painel jogo oculto">
-      <h2>⚡ Reflexo rápido</h2>
-      <p>Teste sua sorte em uma rodada rápida de reação. Cada rodada dá uma pontuação fixa de brincadeira.</p>
-      <p><button type="button" onclick="jogarCrash()">Jogar rodada de reação</button></p>
-      <div id="r4" class="resultado" role="status" aria-live="polite"></div>
-      <p class="pequeno">Sem apostas, multiplicadores, perdas de pontos ou recompensas resgatáveis.</p>
-    </section>
-    <p><button type="button" onclick="voltar()">⬅ Voltar ao menu</button></p>
-    <footer>ARENA DA SORTE · JOGOS RECREATIVOS · PONTOS SEM VALOR MONETÁRIO</footer>
-  </main>
-  <script>
-    let pontos = 1000;
-    function atualizar() {
-      document.getElementById('saldo').textContent = pontos.toLocaleString('pt-BR');
-    }
-    function abrir(id) {
-      document.querySelectorAll('.jogo').forEach(el => el.classList.add('oculto'));
-      const secao = document.getElementById(id);
-      if (secao) secao.classList.remove('oculto');
-    }
-    function voltar() { abrir('inicio'); }
-    function adicionarPontos(valor) {
-      if (Number.isFinite(valor) && valor > 0) pontos += Math.floor(valor);
-      atualizar();
-    }
-    function jogarRoleta() {
-      const cores = ['vermelho', 'preto', 'vermelho', 'preto', 'vermelho', 'preto', 'verde'];
-      const sorteada = cores[Math.floor(Math.random() * cores.length)];
-      const escolha = document.getElementById('cor').value;
-      const ganho = escolha === sorteada ? (sorteada === 'verde' ? 100 : 20) : 0;
-      adicionarPontos(ganho);
-      document.getElementById('r1').textContent = 'Saiu ' + sorteada + '! ' + (ganho ? 'Você ganhou ' + ganho + ' pontos fictícios.' : 'Não pontuou nesta rodada.');
-    }
-    function jogarCartas() {
-      const nomes = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-      const a = Math.floor(Math.random() * 13);
-      const b = Math.floor(Math.random() * 13);
-      const diferenca = a - b;
-      const ganho = diferenca > 0 ? 20 : diferenca === 0 ? 5 : 0;
-      adicionarPontos(ganho);
-      document.getElementById('r2').textContent = 'Sua carta: ' + nomes[a] + ' · Computador: ' + nomes[b] + '. ' + (ganho ? 'Você ganhou ' + ganho + ' pontos fictícios!' : diferenca === 0 ? 'Empate! Você ganhou 5 pontos fictícios.' : 'Desta vez o computador venceu.');
-    }
-    function jogarDados() {
-      const escolha = Number(document.getElementById('numero').value);
-      const dado = 1 + Math.floor(Math.random() * 6);
-      const ganho = escolha === dado ? 30 : 0;
-      adicionarPontos(ganho);
-      document.getElementById('r3').textContent = 'O dado mostrou ' + dado + '. ' + (ganho ? 'Você ganhou 30 pontos fictícios!' : 'Não pontuou desta vez.');
-    }
-    function jogarCrash() {
-      const resultado = document.getElementById('r4');
-      const reacao = 5 + Math.floor(Math.random() * 16);
-      const ganho = 10 + Math.floor(Math.random() * 21);
-      adicionarPontos(ganho);
-      resultado.textContent = 'Rodada concluída! Tempo de reação simulado: ' + reacao + ' ms. Você marcou +' + ganho + ' pontos fictícios.';
-    }
-  </script>
-</body>
-</html>
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090b12"><meta name="description" content="Minijogos recreativos com pontos fictícios, sem apostas ou prêmios."><title>Arena da Sorte — Jogos Recreativos</title>
+<style>
+:root{color-scheme:dark;--bg:#090b12;--panel:#151d2e;--line:#34415c;--gold:#f4c65e;--text:#f7f8fc;--muted:#b5bfd2}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,#41305f 0,transparent 50%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}header{text-align:center;padding:30px 14px 25px;background:linear-gradient(135deg,#191e31,#10131e);border-bottom:1px solid #9c7835}.logo{font-size:12px;font-weight:800;letter-spacing:3px;color:var(--gold)}h1{font-size:clamp(27px,7vw,39px);line-height:1.2;margin:7px 0;color:var(--gold);letter-spacing:1px}header p{margin:0;color:var(--muted);font-size:14px}main{width:min(100%,760px);margin:auto;padding:20px 14px 34px}.balance{background:linear-gradient(145deg,#25213b,#151b2a);border:1px solid #6c5837;border-radius:18px;padding:17px;text-align:center;margin-bottom:18px}.balance small{color:var(--muted);letter-spacing:1px;font-size:11px;font-weight:700}.balance strong{display:block;font-size:clamp(29px,8vw,38px);color:var(--gold)}.balance span{font-size:13px;color:var(--muted)}h2{font-size:21px;line-height:1.3;margin:0 0 12px}.headrow{display:flex;align-items:center;justify-content:space-between;gap:10px}.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0 20px}button{font:inherit;cursor:pointer;touch-action:manipulation}.game-btn{min-height:94px;padding:12px 8px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#202a43,#141b2b);color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-weight:750}.game-btn .emoji{font-size:27px}.hint{font-size:11px;color:var(--muted);font-weight:500}.game-btn[aria-pressed=true]{border-color:var(--gold);box-shadow:0 0 0 1px #f4c65e33}.panel{background:linear-gradient(145deg,#171f31,#111725);border:1px solid var(--line);border-radius:18px;padding:20px;margin:0 0 16px;box-shadow:0 12px 30px #0002}.panel p{color:#d6ddec;margin:8px 0 14px}.hidden{display:none!important}.primary,.secondary,.reset{border-radius:12px;min-height:48px;padding:12px 16px;font-weight:750;width:100%;border:1px solid #e5b94e}.primary{background:linear-gradient(135deg,#f4cf78,#dba63c);color:#17130a}.secondary{background:#202a40;color:var(--text);border-color:var(--line)}.reset{background:transparent;color:var(--muted);border-color:var(--line);font-size:12px;min-height:40px;width:auto;padding:8px 10px}label{display:block;font-size:14px;color:var(--muted);margin:12px 0 6px}select{width:100%;min-height:48px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font-size:16px}.result{margin-top:15px;padding:13px;border-radius:12px;background:#0b111e;border:1px solid #29364e;min-height:48px;color:var(--gold);font-weight:700;overflow-wrap:anywhere}.result:empty{display:none}.card-row{display:flex;justify-content:center;gap:16px;margin:18px 0}.playing-card{width:min(36%,120px);aspect-ratio:3/4;border-radius:13px;background:#f7f3e9;color:#172033;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:36px;font-weight:900;box-shadow:0 5px 18px #0004;border:2px solid white}.playing-card small{font-size:11px}.dice-face{font-size:64px;text-align:center;line-height:1.4;margin:10px 0}.disclaimer,footer{text-align:center;color:#8995ad;font-size:11px}.disclaimer{margin:18px 5px 0}footer{padding:20px 8px;border-top:1px solid #263047;margin-top:20px}@media(min-width:560px){.menu{grid-template-columns:repeat(4,minmax(0,1fr))}.game-btn{min-height:110px}.panel{padding:24px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style></head><body>
+<header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
+<main>
+<section class="balance" aria-live="polite"><small>SUA PONTUAÇÃO DE DEMONSTRAÇÃO</small><strong id="balance">1.000</strong><span>pontos fictícios · sem valor monetário</span></section>
+<div class="headrow"><h2>Escolha um jogo</h2><button class="reset" id="resetScore" type="button">Reiniciar pontos</button></div>
+<nav class="menu" aria-label="Escolher minijogo">
+<button class="game-btn" type="button" data-game="roulette" aria-pressed="false"><span class="emoji">🎡</span><span>Roleta de cores</span><span class="hint">Escolha uma cor</span></button>
+<button class="game-btn" type="button" data-game="cards" aria-pressed="false"><span class="emoji">🃏</span><span>Maior carta</span><span class="hint">Compare as cartas</span></button>
+<button class="game-btn" type="button" data-game="dice" aria-pressed="false"><span class="emoji">🎲</span><span>Dados</span><span class="hint">Adivinhe o número</span></button>
+<button class="game-btn" type="button" data-game="reflex" aria-pressed="false"><span class="emoji">⚡</span><span>Reflexo rápido</span><span class="hint">Rodada de reação</span></button></nav>
+<section id="welcome" class="panel game-panel"><h2>Bem-vindo à Arena!</h2><p>Toque em qualquer jogo acima para começar. Os pontos são apenas uma contagem de brincadeira: não podem ser comprados, sacados, transferidos ou trocados por dinheiro ou prêmios.</p></section>
+<section id="roulette" class="panel game-panel hidden"><h2>🎡 Roleta de cores</h2><p>Escolha uma cor e gire. Acertar dá pontos fictícios; errar não tira pontos.</p><label for="colorChoice">Qual cor você escolhe?</label><select id="colorChoice"><option value="vermelho">🔴 Vermelho</option><option value="preto">⚫ Preto</option><option value="verde">🟢 Verde</option></select><p><button class="primary" id="spin" type="button">Girar roleta</button></p><div id="rouletteResult" class="result" role="status" aria-live="polite"></div></section>
+<section id="cards" class="panel game-panel hidden"><h2>🃏 Maior carta</h2><p>Você e o computador recebem uma carta. A rodada dá pontos de brincadeira conforme o resultado.</p><div class="card-row"><div class="playing-card" id="playerCard"><small>SUA CARTA</small>?</div><div class="playing-card" id="computerCard"><small>COMPUTADOR</small>?</div></div><button class="primary" id="deal" type="button">Distribuir cartas</button><div id="cardsResult" class="result" role="status" aria-live="polite"></div></section>
+<section id="dice" class="panel game-panel hidden"><h2>🎲 Dados</h2><p>Escolha um número de 1 a 6. Se acertar, recebe pontos fictícios.</p><label for="diceChoice">Seu palpite</label><select id="diceChoice"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select><div class="dice-face" id="diceFace" aria-hidden="true">🎲</div><button class="primary" id="rollDice" type="button">Lançar dado</button><div id="diceResult" class="result" role="status" aria-live="polite"></div></section>
+<section id="reflex" class="panel game-panel hidden"><h2>⚡ Reflexo rápido</h2><p>Toque no botão para concluir uma rodada e receber uma pontuação fixa aleatória de brincadeira.</p><button class="primary" id="playReflex" type="button">Jogar rodada recreativa</button><div id="reflexResult" class="result" role="status" aria-live="polite"></div></section>
+<button class="secondary" id="backToMenu" type="button">← Voltar ao início</button><p class="disclaimer">Jogo casual para entretenimento. Sem apostas, depósitos, saques ou prêmios de valor real.</p><footer>ARENA DA SORTE · VERSÃO RECREATIVA</footer></main>
+<script>
+(function(){
+'use strict';
+var score=1000, balance=document.getElementById('balance'), panels=Array.from(document.querySelectorAll('.game-panel')), buttons=Array.from(document.querySelectorAll('[data-game]'));
+function update(){balance.textContent=score.toLocaleString('pt-BR')}
+function add(n){score+=Math.max(0,Math.floor(Number(n)||0));update()}
+function show(id){var target=id||'welcome';panels.forEach(function(p){p.classList.toggle('hidden',p.id!==target)});buttons.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.game===id))});var section=document.getElementById(target);if(section)section.scrollIntoView({behavior:'smooth',block:'nearest'})}
+buttons.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.game)})});
+document.getElementById('backToMenu').addEventListener('click',function(){show('welcome');window.scrollTo({top:0,behavior:'smooth'})});
+document.getElementById('resetScore').addEventListener('click',function(){score=1000;update();['rouletteResult','cardsResult','diceResult','reflexResult'].forEach(function(id){document.getElementById(id).textContent=''}) ;document.getElementById('playerCard').innerHTML='<small>SUA CARTA</small>?';document.getElementById('computerCard').innerHTML='<small>COMPUTADOR</small>?';document.getElementById('diceFace').textContent='🎲';show('welcome')});
+document.getElementById('spin').addEventListener('click',function(){var colors=['vermelho','preto','vermelho','preto','vermelho','preto','verde'],picked=colors[Math.floor(Math.random()*colors.length)],choice=document.getElementById('colorChoice').value,points=choice===picked?(picked==='verde'?100:20):0;add(points);document.getElementById('rouletteResult').textContent='Resultado: '+picked+'. '+(points?'Acertou! +'+points+' pontos fictícios.':'Desta vez não pontuou. Seus pontos foram mantidos.')});
+document.getElementById('deal').addEventListener('click',function(){var deck=[['2',2],['3',3],['4',4],['5',5],['6',6],['7',7],['8',8],['9',9],['10',10],['J',11],['Q',12],['K',13],['A',14]],a=deck[Math.floor(Math.random()*deck.length)],b=deck[Math.floor(Math.random()*deck.length)];document.getElementById('playerCard').innerHTML='<small>SUA CARTA</small>'+a[0];document.getElementById('computerCard').innerHTML='<small>COMPUTADOR</small>'+b[0];var points=a[1]>b[1]?20:(a[1]===b[1]?5:0);add(points);document.getElementById('cardsResult').textContent=a[1]>b[1]?'Você venceu esta rodada! +20 pontos fictícios.':a[1]===b[1]?'Empate! +5 pontos fictícios.':'O computador venceu esta rodada. Seus pontos foram mantidos.'});
+document.getElementById('rollDice').addEventListener('click',function(){var n=1+Math.floor(Math.random()*6),faces=['⚀','⚁','⚂','⚃','⚄','⚅'];document.getElementById('diceFace').textContent=faces[n-1];var points=Number(document.getElementById('diceChoice').value)===n?30:0;add(points);document.getElementById('diceResult').textContent='O dado mostrou '+n+'. '+(points?'Acertou! +30 pontos fictícios.':'Não acertou desta vez. Seus pontos foram mantidos.')});
+document.getElementById('playReflex').addEventListener('click',function(){var points=10+Math.floor(Math.random()*21),ms=180+Math.floor(Math.random()*420);add(points);document.getElementById('reflexResult').textContent='Rodada concluída! Tempo simulado: '+ms+' ms. Você recebeu +'+points+' pontos fictícios.'});
+update();
+})();
+</script></body></html>
