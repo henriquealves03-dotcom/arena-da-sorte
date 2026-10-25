@@ -94,7 +94,7 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
 .recharge-panel{margin-top:16px}.recharge-box{border:1px solid #c9a34e;border-radius:16px;padding:18px;background:linear-gradient(145deg,#172133,#0b101c)}.recharge-field{display:block;width:100%;box-sizing:border-box;min-height:48px;padding:12px;border:1px solid #43516a;border-radius:11px;background:#080d16;color:#fff;font:inherit;font-size:18px}.recharge-choices{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.recharge-choice{border:1px solid #c9a34e;border-radius:10px;padding:8px 13px;background:#151e2d;color:#f3c969;font:inherit;font-weight:750;cursor:pointer}.recharge-hint{font-size:12px;color:var(--muted);line-height:1.6}.recharge-result{display:none;margin-top:12px;border:1px solid #43516a;border-radius:11px;padding:12px;color:#dce5f5;background:#111a28;line-height:1.5}.recharge-result.visible{display:block}
 </style></head><body>
 <header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
-<nav class="arena-nav" aria-label="Navegação principal"><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#plansPanel">Planos</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
+<nav class="arena-nav" aria-label="Navegação principal"><a href="#homePanel">Início</a><a href="#gameLobby">Jogos</a><a href="#rechargePanel">Recarga</a><a href="#arenaAssistant">Assistente</a><span class="nav-tag">57 MINIJOGOS</span></nav>
 <div class="update-all-wrap"><button class="update-all-button" type="button" id="updateAllButton"><span aria-hidden="true">↻</span> Atualizar tudo</button><span class="update-all-note" id="updateAllNote" role="status" aria-live="polite">Carrega a versão mais recente do site</span></div>
 <main>
 <section class="balance" aria-live="polite"><small>SUA PONTUAÇÃO DE DEMONSTRAÇÃO</small><strong id="balance">1.000</strong><span>pontos fictícios · sem valor monetário</span></section>
@@ -117,30 +117,6 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
  </div>
  <button class="secondary home-all" type="button" id="showAllGames">Ver todos os jogos ↓</button>
  <p class="home-footnote">Todos os pontos são fictícios e não têm valor em dinheiro.</p>
-</section>
-<section class="panel plans-panel" id="plansPanel" aria-labelledby="plansTitle">
- <div class="home-kicker">✦ PLANOS DA ARENA</div>
- <h2 id="plansTitle">Jogue grátis. Escolha benefícios extras.</h2>
- <p class="plans-intro">Os planos pagos oferecem recursos de personalização e acompanhamento. Todos os jogos continuam recreativos: pontos fictícios, sem apostas, prêmios em dinheiro ou saques.</p>
- <div class="plans-grid">
-  <article class="plan-card">
-   <span class="plan-label">Comece aqui</span><h3>Gratuito</h3><div class="plan-price">R$ 0 <small>/ sempre</small></div>
-   <ul><li>Acesso aos minijogos recreativos</li><li>Pontuação fictícia</li><li>Experiência básica da Arena</li></ul>
-   <button class="plan-action secondary-plan" type="button" data-plan="Gratuito">Plano atual</button>
-  </article>
-  <article class="plan-card featured">
-   <span class="plan-label">Mais benefícios</span><h3>Arena Plus</h3><div class="plan-price">Preço a definir</div>
-   <ul><li>Temas visuais extras</li><li>Emblemas de perfil exclusivos</li><li>Estatísticas recreativas ampliadas</li></ul>
-   <button class="plan-action" type="button" data-plan="Arena Plus">Tenho interesse</button>
-  </article>
-  <article class="plan-card">
-   <span class="plan-label">Experiência completa</span><h3>Arena Premium</h3><div class="plan-price">Preço a definir</div>
-   <ul><li>Todos os benefícios Plus</li><li>Mais opções de personalização</li><li>Histórico recreativo detalhado</li></ul>
-   <button class="plan-action secondary-plan" type="button" data-plan="Arena Premium">Tenho interesse</button>
-  </article>
- </div>
- <div class="plan-notice" id="planNotice" role="status" aria-live="polite"></div>
- <p class="ai-note">A contratação e o checkout ainda não estão configurados. Não envie Pix por esta página. Os preços e condições serão publicados antes de qualquer cobrança.</p>
 </section>
 <section class="panel recharge-panel" id="rechargePanel" aria-labelledby="rechargeTitle">
  <div class="home-kicker">✦ COMPRAS DA ARENA</div>
