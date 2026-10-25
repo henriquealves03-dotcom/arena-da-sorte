@@ -34,10 +34,44 @@ h1{background:linear-gradient(180deg,#fff0bf 0%,#f4c65e 48%,#b9822b 100%);-webki
 @media(min-width:560px){.game-btn{min-height:124px}.game-art{width:82px;height:68px}}
 @media(prefers-reduced-motion:reduce){.game-btn,.game-btn:hover,.game-btn:active{transform:none}}
 
+
+.home-panel{border-color:#5b6680;background:radial-gradient(ellipse at 90% 0%,#4d376644,transparent 40%),linear-gradient(145deg,#1c2739,#101621 68%,#0b1019);padding:18px;overflow:hidden}
+.home-kicker{font-size:10px;letter-spacing:2px;font-weight:900;color:#ffe09a;margin-bottom:8px}
+.home-title{font-size:clamp(23px,6vw,31px);line-height:1.15;margin:0 0 9px;background:linear-gradient(180deg,#fff4d2,#f3c969 70%,#bd842b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.home-copy{font-size:13px;color:#c4cede;margin:0 0 16px!important}
+.home-feature{display:flex;align-items:center;gap:14px;padding:13px;border:1px solid #8d7446;border-radius:15px;background:linear-gradient(110deg,#344158,#1a2232 65%,#28203b);box-shadow:inset 0 1px #ffffff18,0 8px 18px #0004;margin-bottom:18px}
+.home-feature-art{width:60px;height:60px;display:grid;place-items:center;flex-shrink:0;border-radius:14px;background:radial-gradient(circle at 30% 20%,#66758b,#1b2638 70%);font-size:34px;box-shadow:inset 0 1px #ffffff35,0 5px 12px #0005}
+.home-feature-text{display:flex;flex-direction:column;gap:3px}.home-feature-text strong{font-size:13px;letter-spacing:1px;color:#ffe2a0}.home-feature-text span{font-size:11px;color:#c3cede}
+.home-subtitle{font-size:15px;margin:0 0 10px}
+.home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.home-game{min-width:0;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:4px;padding:12px 11px;border-radius:14px;border:1px solid #3c4a62;background:linear-gradient(145deg,#2b374c,#141d2b 70%,#0d131f);color:var(--text);box-shadow:inset 0 1px #ffffff12,0 5px 12px #0003;transition:transform .16s,border-color .16s}
+.home-game:active{transform:scale(.97);border-color:#f3c969}.home-icon{font-size:28px;filter:drop-shadow(0 3px 3px #0006)}.home-game-title{font-size:12px;font-weight:800}.home-game-hint{font-size:10px;color:#b7c2d5}
+.home-all{margin-top:12px}.home-footnote{font-size:10px!important;color:#8f9bb1!important;text-align:center;margin:12px 0 0!important}
+@media(min-width:560px){.home-panel{padding:24px}.home-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.home-game{min-height:112px;padding:14px}}
 </style></head><body>
 <header><div class="logo">ENTRETENIMENTO • JOGOS DE PONTOS</div><h1>✦ ARENA DA SORTE ✦</h1><p>Minijogos recreativos para se divertir</p></header>
 <main>
 <section class="balance" aria-live="polite"><small>SUA PONTUAÇÃO DE DEMONSTRAÇÃO</small><strong id="balance">1.000</strong><span>pontos fictícios · sem valor monetário</span></section>
+<section class="panel game-panel home-panel" id="homePanel">
+ <div class="home-kicker">✦ CENTRAL DE JOGOS</div>
+ <h2 class="home-title">Sua próxima partida começa aqui</h2>
+ <p class="home-copy">Escolha um jogo abaixo e entre direto na partida. Divirta-se com desafios rápidos e pontos fictícios.</p>
+ <div class="home-feature">
+  <div class="home-feature-art" aria-hidden="true">🎮</div>
+  <div class="home-feature-text"><strong>ARENA ARCADE</strong><span>Jogos • desafios • diversão</span></div>
+ </div>
+ <h3 class="home-subtitle">Comece a jogar</h3>
+ <div class="home-grid">
+  <button class="home-game" type="button" data-game="roulette"><span class="home-icon">🎡</span><span class="home-game-title">Roleta numerada</span><span class="home-game-hint">Gire e descubra</span></button>
+  <button class="home-game" type="button" data-game="cards"><span class="home-icon">🃏</span><span class="home-game-title">Maior número</span><span class="home-game-hint">Compare as cartas</span></button>
+  <button class="home-game" type="button" data-game="dice"><span class="home-icon">🎲</span><span class="home-game-title">Dado numerado</span><span class="home-game-hint">Desafio de sorte</span></button>
+  <button class="home-game" type="button" data-game="reflex"><span class="home-icon">⚡</span><span class="home-game-title">Desafio numérico</span><span class="home-game-hint">Teste sua atenção</span></button>
+  <button class="home-game" type="button" data-game="tri-gringo"><span class="home-icon">🍀</span><span class="home-game-title">Tri Gringo</span><span class="home-game-hint">Combine símbolos</span></button>
+  <button class="home-game" type="button" data-game="fortune-dragon"><span class="home-icon">🐉</span><span class="home-game-title">Fortune Dragon</span><span class="home-game-hint">Desafio do dragão</span></button>
+ </div>
+ <button class="secondary home-all" type="button" id="showAllGames">Ver todos os jogos ↓</button>
+ <p class="home-footnote">Todos os pontos são fictícios e não têm valor em dinheiro.</p>
+</section>
 <section class="panel" id="playersPanel"><h2>Jogadores individuais — demonstração</h2><p>Adicione nomes e pontuações fictícias para ver a distribuição proporcional de pontos. A lista pode ser salva somente neste navegador; não é uma conta online e não sincroniza com outros aparelhos. Evite usar dados pessoais sensíveis.</p><label for="playerName">Nome do jogador</label><input id="playerName" maxlength="30" autocomplete="off" placeholder="Digite um nome" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><label for="playerPoints">Pontuação fictícia do jogador</label><input id="playerPoints" type="number" min="1" max="1000000" value="100" style="width:100%;min-height:46px;padding:10px 12px;border-radius:11px;border:1px solid var(--line);background:#0b101c;color:var(--text);font:inherit"><p><button class="primary" id="addPlayer" type="button">Adicionar / atualizar jogador</button></p><p><button class="secondary" id="clearPlayers" type="button">Limpar lista de demonstração</button></p><div class="result" id="playersResult" role="status" aria-live="polite">Nenhum jogador adicionado ainda.</div><div id="playersList"></div><div class="result" id="allocationSummary">Simulação com 1.000 pontos fictícios: 300 pontos para jogadores e 700 pontos para a plataforma. Sem dinheiro real.</div></section>
 <div class="headrow"><h2>Escolha um jogo</h2><button class="reset" id="resetScore" type="button">Reiniciar pontos</button></div>
 <nav class="menu" aria-label="Escolher minijogo">
@@ -70,7 +104,8 @@ function update(){balance.textContent=score.toLocaleString('pt-BR')}
 function add(n){score+=Math.max(0,Math.floor(Number(n)||0));update()}
 function show(id){var target=id||'roulette';panels.forEach(function(p){p.classList.toggle('hidden',p.id!==target)});buttons.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.game===target))});var section=document.getElementById(target);if(section){section.scrollIntoView({behavior:'smooth',block:'start'});section.setAttribute('tabindex','-1');try{section.focus({preventScroll:true})}catch(e){section.focus()}}}
 buttons.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.game)})});
-document.getElementById('backToMenu').addEventListener('click',function(){show('welcome');window.scrollTo({top:0,behavior:'smooth'})});
+document.getElementById('backToMenu').addEventListener('click',function(){show('homePanel');window.scrollTo({top:0,behavior:'smooth'})});
+document.getElementById('showAllGames').addEventListener('click',function(){document.querySelector('.menu').scrollIntoView({behavior:'smooth',block:'start'})});
 document.getElementById('resetScore').addEventListener('click',function(){score=1000;update();['rouletteResult','cardsResult','diceResult','reflexResult'].forEach(function(id){document.getElementById(id).textContent=''}) ;document.getElementById('playerCard').innerHTML='<small>SUA CARTA</small>?';document.getElementById('computerCard').innerHTML='<small>COMPUTADOR</small>?';document.getElementById('diceFace').textContent='?';show('welcome')});
 var wheelTurns=0;var numberPicks=Array.from(document.querySelectorAll('[data-pick]'));numberPicks.forEach(function(btn){btn.addEventListener('click',function(){document.getElementById('colorChoice').value=btn.dataset.pick;numberPicks.forEach(function(other){other.setAttribute('aria-pressed',String(other===btn))})})});document.getElementById('colorChoice').addEventListener('change',function(){numberPicks.forEach(function(btn){btn.setAttribute('aria-pressed',String(btn.dataset.pick===this.value))},this)});document.getElementById('spin').addEventListener('click',function(){var wheel=document.getElementById('wheel');var picked=1+Math.floor(Math.random()*7);document.getElementById('centerNumber').textContent=picked;var sector=360/7;var targetAngle=(picked-1)*sector+sector/2;var current=wheelTurns%360;var delta=(360-targetAngle-current+360)%360;wheelTurns+=1440+delta;wheel.style.transform='rotate('+wheelTurns+'deg)';var choice=Number(document.getElementById('colorChoice').value),points=choice===picked?20:0;add(points);document.getElementById('rouletteResult').innerHTML='Número sorteado: <span class="number-result">'+picked+'</span><br>'+(points?'Acertou! +20 pontos fictícios.':'Desta vez não acertou. Seus pontos foram mantidos.')});
 document.getElementById('deal').addEventListener('click',function(){var a=1+Math.floor(Math.random()*99),b=1+Math.floor(Math.random()*99);document.getElementById('playerCard').innerHTML='<small>SEU NÚMERO</small>'+a;document.getElementById('computerCard').innerHTML='<small>COMPUTADOR</small>'+b;var points=a>b?20:(a===b?5:0);add(points);document.getElementById('cardsResult').textContent=a>b?'Seu número foi maior! +20 pontos fictícios.':a===b?'Empate! +5 pontos fictícios.':'O número do computador foi maior. Seus pontos foram mantidos.'});
@@ -158,6 +193,6 @@ aiAddMessage(reply,'bot')}
 document.getElementById('aiForm').addEventListener('submit',function(e){e.preventDefault();var value=aiInput.value.trim();if(!value)return;aiAddMessage(value,'user');aiInput.value='';aiReply(value)});
 document.querySelectorAll('[data-ai-question]').forEach(function(button){button.addEventListener('click',function(){var q=button.dataset.aiQuestion;aiAddMessage(q,'user');aiReply(q)})});
 \nloadPlayers();renderPlayers();
-update();show('roulette');
+update();show('homePanel');
 })();
 </script></body></html>
