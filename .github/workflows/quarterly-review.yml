@@ -1,0 +1,50 @@
+name: Revisao trimestral da Arena da Sorte
+
+on:
+  schedule:
+    # Primeiro dia de janeiro, abril, julho e outubro, às 12:00 UTC.
+    - cron: "0 12 1 1,4,7,10 *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  open-quarterly-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Abrir checklist de manutencao trimestral
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const now = new Date();
+            const year = now.getUTCFullYear();
+            const quarter = Math.floor(now.getUTCMonth() / 3) + 1;
+            const title = `Revisao trimestral da Arena da Sorte — ${year} T${quarter}`;
+            const { owner, repo } = context.repo;
+            const existing = await github.rest.issues.listForRepo({
+              owner, repo, state: "open", per_page: 100
+            });
+            if (existing.data.some(issue => issue.title === title)) {
+              core.info(`Checklist ja existe: ${title}`);
+              return;
+            }
+            const body = [
+              "## Checklist trimestral",
+              "",
+              "- [ ] Testar a plataforma em iPhone e computador.",
+              "- [ ] Testar roleta e demais jogos com pontos ficticios.",
+              "- [ ] Corrigir erros e revisar acessibilidade.",
+              "- [ ] Atualizar dependencias, se houver, e verificar alertas de seguranca.",
+              "- [ ] Confirmar que nao existem apostas com dinheiro real, depositos, saques ou premios monetarios.",
+              "- [ ] Conferir se a politica de privacidade e os avisos estao claros.",
+              "- [ ] Testar a publicacao e verificar se o site abre por HTTPS.",
+              "- [ ] Registrar as mudancas e o resultado dos testes antes de publicar.",
+              "",
+              "> Este checklist agenda uma revisao; nao altera nem publica funcionalidades automaticamente. Mudancas precisam ser implementadas, testadas e aprovadas."
+            ].join("\n");
+            const issue = await github.rest.issues.create({
+              owner, repo, title, body, labels: []
+            });
+            core.info(`Checklist criado: ${issue.data.html_url}`);
